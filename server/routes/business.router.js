@@ -18,4 +18,48 @@ router.get('/', function (req, res) {
     });
 });
 
+
+// Handles POST request with new business data
+router.post('/', function(req, res, next) {
+    console.log('post /business route');
+    /*
+   user: {type: String, required: true},
+    name: {type: String, required: true},
+    street: {type: String, required: true},
+    city: {type: String, required: true},
+    zip: {type: String, required: true},
+    website: {type: String, required: true},
+    description: {type: String},
+    offerings: {type: Array},    
+    image_url: {type: String}
+    */
+
+var businessToSave = new Business(req.body);
+
+businessToSave.user = req.user.username;
+
+    //   var businessToSave = {
+    //     user: req.body.username,
+    //     name: req.body.name,
+    //     street: req.body.street,
+    //     city: req.body.city,
+    //     zip: req.body.zip,
+    //     // website: req.body.website,
+    //     // description: req.body.description
+    //   };
+  
+      console.log('this is the businesssToSave ==> ', businessToSave)
+  
+      Business.create(businessToSave, function(err, post) {
+        console.log('post /business -- Business.create');
+           if(err) {
+             console.log('post /business -- Business.create -- failure');
+             res.sendStatus(500);
+           } else {
+             console.log('post /business -- Business.create -- success');
+             res.sendStatus(201);
+           }
+      });
+  });
+
 module.exports = router;

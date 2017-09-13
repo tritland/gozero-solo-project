@@ -1,4 +1,4 @@
-var myApp = angular.module('myApp', ['ngRoute']);
+var myApp = angular.module('myApp', ['ngRoute', 'ngMaterial']);
 
 /// Routes ///
 myApp.config(function($routeProvider, $locationProvider) {
@@ -17,8 +17,8 @@ myApp.config(function($routeProvider, $locationProvider) {
       templateUrl: '/views/templates/register.html',
       controller: 'LoginController as lc'
     })
-    .when('/user', {
-      templateUrl: '/views/templates/user.html',
+    .when('/registeredHome', {
+      templateUrl: '/views/templates/registeredHome.html',
       controller: 'UserController as uc',
       resolve: {
         getuser : function(UserService){

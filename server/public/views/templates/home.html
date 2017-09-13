@@ -1,18 +1,17 @@
+<div ng-controller="MaterialController as mc" ></div>
 
-
-<div class="containter" ng-controller="BusinessController as bc">
-<!-- {{bc}} -->
-<div ng-repeat="business in bc.businessData.list"> 
-    <p>{{business.name}}</p>
-    <p>{{ business.street }} </p>
-    <p>{{business.city}}, {{business.state}} {{business.zip}}</p>
-    <p><a href="{{business.website}}">{{business.website}}</a></p>
-    <p>{{business.description}}</p>
-    
-    Zero-Waste Offerings: 
-    <span ng-repeat="offering in business.offerings">
-        {{offering}}
-        <br>
-        <br>
-    </span>
-</div>
+<div class="containter" id="bizList" ng-controller="BusinessController as bc">
+    <md-button class="md=primary md-raised" id="addBizButton" ng-href="#/login">Add New Business</md-button>
+    <div ng-repeat="business in bc.businessData.list">
+      <p> {{business.name}} <br> 
+          {{ business.street }} <br> 
+          {{business.city}}, {{business.state}} {{business.zip}} <br>
+          <a href="{{business.website}}">{{business.website}}</a> <br> 
+          <button>Details</button> <br>
+          {{business.description}} <br> 
+          Zero-Waste Offerings:<br>
+        <span ng-repeat="offering in business.offerings">
+          {{offering}}<br>   
+        </span>
+       </p>
+    </div>

@@ -78,3 +78,25 @@ li a:hover {
   text-decoration: underline;
   color: #eee;
 }
+
+#addBizButton {
+  margin-left: 25px;
+  margin-right: 25px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: #2ac96e;
+}
+
+#bizList {
+  margin-left: 30px;
+  margin-top: 50px;
+  margin-bottom: 15px;
+  border-style: solid;
+  border-width: 1px;
+  width: 30%;
+}
+
+#bizList p, span{
+  padding-left: 25px;
+}
+
