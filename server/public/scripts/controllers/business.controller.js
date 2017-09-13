@@ -3,7 +3,14 @@ myApp.controller('BusinessController', ['UserService', '$http', function (UserSe
     var vm = this;
     vm.form = false;
     vm.businessData = UserService.businessData
-  
+    vm.newBusiness = {
+      name: '',
+      street: '',
+      city: '',
+      state: '',
+      zip: ''
+    };
+    vm.message = '';
 
     vm.openForm = function(){
       vm.form = !vm.form;
@@ -23,6 +30,14 @@ myApp.controller('BusinessController', ['UserService', '$http', function (UserSe
           console.log('addBusiness Post on businessController was a success!');
           //$location.path('/registeredHome');
           UserService.getBusinesses();
+          vm.openForm();
+          vm.newBusiness = {
+            name: '',
+            street: '',
+            city: '',
+            state: '',
+            zip: ''
+          };
         }).catch(function(response) {
           console.log('addBusiness Post on businessController had an error ==>', response);
           vm.message = "Please try again."
