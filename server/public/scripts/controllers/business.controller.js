@@ -2,29 +2,28 @@ myApp.controller('BusinessController', ['UserService', '$http', 'NgMap', functio
     console.log('BusinessController created');
     var vm = this;
     vm.form = false;
-    //vm.business.details = false;
+   
     vm.businessData = UserService.businessData
-    vm.newBusiness = {
-      name: '',
-      street: '',
-      city: '',
-      state: '',
-      zip: ''
-    };
+   
+    vm.newBusiness = { };
+    
     vm.message = '';
 
 
     vm.placeChanged = function() {
       vm.place = this.getPlace();
+      vm.newBusiness = vm.place
       console.log('here is all the data in vm.place ==>', vm.place)
       console.log('location', vm.place.geometry.location);
       vm.map.setCenter(vm.place.geometry.location);
+      vm.newBusiness.latitude = vm.place.geometry.location.lat();
+      vm.newBusiness.longitude = vm.place.geometry.location.lng();
     }
     NgMap.getMap().then(function(map) {
       vm.map = map;
     });
   
-   
+
 
 //function to show/hide new Business input form
     vm.openForm = function(){
@@ -40,10 +39,13 @@ myApp.controller('BusinessController', ['UserService', '$http', 'NgMap', functio
 
     vm.addBusiness = function() {
       console.log('hit addBusiness post on ==> businessController');
-      if(vm.newBusiness.name === '' || vm.newBusiness.street === '' || vm.newBusiness.city === '' || vm.newBusiness.state === '' || vm.newBusiness.zip === '') {
+      console.log('here is the newBusiness object ==>', vm.newBusiness);
+      if(vm.newBusiness.name === '' || vm.newBusiness.address === '' ){
+        //|| vm.newBusiness.street === '' || vm.newBusiness.city === '' || vm.newBusiness.state === '' || vm.newBusiness.zip === '') {
         vm.message = "Please complete all business name and address information.";
       } else {
         console.log('addBusiness Post on businessController is sending following data to server ==>', vm.newBusiness);
+
         $http.post('/business', vm.newBusiness).then(function(response) {
           console.log('addBusiness Post on businessController was a success!');
           //$location.path('/registeredHome');
@@ -51,10 +53,9 @@ myApp.controller('BusinessController', ['UserService', '$http', 'NgMap', functio
           vm.openForm();
           vm.newBusiness = {
             name: '',
-            street: '',
-            city: '',
-            state: '',
-            zip: ''
+            address: '',
+            website: '',
+            description: ''
           };
         }).catch(function(response) {
           console.log('addBusiness Post on businessController had an error ==>', response);

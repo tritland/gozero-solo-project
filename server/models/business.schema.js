@@ -5,14 +5,13 @@ var Schema = mongoose.Schema;
 var BusinessSchema = new Schema({
     user: {type: String, required: true},
     name: {type: String, required: true},
-    street: {type: String, required: true},
-    city: {type: String, required: true},
-    state: {type: String, required: true},
-    zip: {type: String, required: true},
-    website: {type: String},
-    description: {type: String},
-    offerings: {type: Array},    
-    image_url: {type: String}
+    address: {type: String, required: true},
+    website:{type: String},
+    offering:{type: String},
+    latitude: {type: String},
+    longitude:{type: String} 
+
+
     },
     
     {collection:
@@ -21,3 +20,12 @@ var BusinessSchema = new Schema({
 );
 
 module.exports = mongoose.model('Business', BusinessSchema);
+
+
+
+// street: {type: String},
+// city: {type: String},
+// zip: {type: String},
+// description: {type: String},
+// offerings: {type: Array},    
+// image_url: {type: String}

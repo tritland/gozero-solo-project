@@ -41,7 +41,7 @@ myApp.factory('UserService', function($http, $location){
         console.log('response is', response)
         if (response.status == 200) {
           businessData.list = response.data;
-          console.log('response from business get request ==> ', response);     
+          console.log('response from business get request ==> ', response.data);     
         }
       });
     }

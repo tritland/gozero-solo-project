@@ -6,7 +6,7 @@ var Business = require('../models/business.schema.js');
 
 //gets all documents from 'businesses' collection
 router.get('/', function (req, res) {
-    console.log('hit shelf get route');
+    console.log('hit business get route');
     Business.find({}, function (err, data) {
         if (err) {
             console.log('find error', err);
@@ -22,21 +22,24 @@ router.get('/', function (req, res) {
 // Handles POST request with new business data
 router.post('/', function(req, res, next) {
     console.log('post /business route');
-    /*
-   user: {type: String, required: true},
-    name: {type: String, required: true},
-    street: {type: String, required: true},
-    city: {type: String, required: true},
-    zip: {type: String, required: true},
-    website: {type: String, required: true},
-    description: {type: String},
-    offerings: {type: Array},    
-    image_url: {type: String}
-    */
+  
+ var businessToSave = {
+        user: req.user.username,
+        name: req.body.name,
+        address: req.body.formatted_address,
+        website: req.body.website,
+        offering: req.body.offering,
+        latitude: req.body.geometry.location.lat,
+        longitude: req.body.geometry.location.lng
+    }
 
-var businessToSave = new Business(req.body);
+var savedBusiness = new Business(businessToSave);
 
-businessToSave.user = req.user.username;
+
+
+
+
+//businessToSave.user = req.user.username;
 
     //   var businessToSave = {
     //     user: req.body.username,
@@ -48,9 +51,9 @@ businessToSave.user = req.user.username;
     //     // description: req.body.description
     //   };
   
-      console.log('this is the businesssToSave ==> ', businessToSave)
+      console.log('this is the savedBusiness ==> ', savedBusiness)
   
-      Business.create(businessToSave, function(err, post) {
+      Business.create(savedBusiness, function(err, post) {
         console.log('post /business -- Business.create');
            if(err) {
              console.log('post /business -- Business.create -- failure');
