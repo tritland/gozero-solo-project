@@ -1,17 +1,34 @@
 <div ng-controller="MaterialController as mc" ></div>
 
+<ng-map id="map" center="[44.97, -93.26]">
+
+  <marker position="[44.9614, -93.2876]"></marker>
+</ng-map>
+
+
 <div class="containter" id="bizList" ng-controller="BusinessController as bc">
+    
+
     <md-button class="md=primary md-raised" id="addBizButton" ng-href="#/login">Add New Business</md-button>
     <div ng-repeat="business in bc.businessData.list">
       <p> {{business.name}} <br> 
           {{ business.street }} <br> 
           {{business.city}}, {{business.state}} {{business.zip}} <br>
+
           <a href="{{business.website}}">{{business.website}}</a> <br> 
-          <button>Details</button> <br>
+
+          <button ng-click="bc.showDetails(business)">Details</button> <br>
+
+          <div ng-show="business.details">
           {{business.description}} <br> 
           Zero-Waste Offerings:<br>
         <span ng-repeat="offering in business.offerings">
           {{offering}}<br>   
         </span>
        </p>
-    </div>
+       <button ng-click="bc.showDetails(business)">Collapse Details</button>
+      </div>
+  </div>
+
+
+</div>

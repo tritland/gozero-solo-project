@@ -62,4 +62,43 @@ businessToSave.user = req.user.username;
       });
   });
 
+  router.delete('/:id', function (req, res) {
+    
+        if (req.isAuthenticated()) { // is the user logged in?
+    
+            var businessToDelete = {};
+    
+            console.log('req.params.id ==>', req.params.id);
+            
+    
+            Business.findById(req.params.id, function(err, data){
+                if (err){
+                    console.log('delete find error:', err);
+                    res.sendStatus(500);
+                } else {
+                    console.log('no result');
+                    console.log('data:', data);
+                    
+                    businessToDelete = data;
+                } 
+                console.log('Current user ==>', req.user.username);
+                console.log('User who placed item ==>', businessToDelete.user);
+                
+                if (req.user.username === businessToDelete.user){ // is the user the same one who added it?
+                    Business.findByIdAndRemove({ _id: req.params.id }, function (err) {
+                        if (err) {
+                            console.log('delete error', err);
+                            res.sendStatus(500);
+                        } else {
+                            res.sendStatus(200);
+                        };
+                    });
+                } else {
+                    res.sendStatus(500);
+                }
+            });                      
+        };
+    });
+
+
 module.exports = router;

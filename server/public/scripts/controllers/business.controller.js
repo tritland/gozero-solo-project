@@ -1,7 +1,8 @@
-myApp.controller('BusinessController', ['UserService', '$http', function (UserService, $http) { // BusinessController talks to UserService
+myApp.controller('BusinessController', ['UserService', '$http', 'NgMap', function (UserService, $http, NgMap) { // BusinessController talks to UserService
     console.log('BusinessController created');
     var vm = this;
     vm.form = false;
+    //vm.business.details = false;
     vm.businessData = UserService.businessData
     vm.newBusiness = {
       name: '',
@@ -12,11 +13,21 @@ myApp.controller('BusinessController', ['UserService', '$http', function (UserSe
     };
     vm.message = '';
 
+    // NgMap.getMap().then(function(map) {
+    //   console.log(map.getCenter());
+    //   console.log('markers', map.markers);
+    //   console.log('shapes', map.shapes);
+    // });
+
+//function to show/hide new Business input form
     vm.openForm = function(){
       vm.form = !vm.form;
     };
-    // This is what runs the function in our service that 
-    // communicates to the user services to get businesses off of the database
+
+    vm.showDetails = function(business){
+      business.details = !business.details;
+    }
+// This is what runs the function in our service that communicates to the user services to get businesses off of the database
     UserService.getBusinesses(); 
    
 
@@ -45,5 +56,12 @@ myApp.controller('BusinessController', ['UserService', '$http', function (UserSe
       }
     }
 
+
+    vm.deleteBusiness = function (id) {
+      $http.delete('/business/' + id).then(function (response) {
+        console.log(response);
+        UserService.getBusinesses();
+      });
+    };
 
   }]);

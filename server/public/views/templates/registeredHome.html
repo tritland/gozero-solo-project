@@ -33,7 +33,7 @@
           {{offering}}<br>   
         </span>
        </p>
-       <button ng-if="uc.userObject.userName==business.user">Delete</button>
+       <button ng-if="uc.userObject.userName==business.user" ng-click="bc.deleteBusiness(business._id)">Delete</button>
        <button ng-if="uc.userObject.userName==business.user">Update</button>
     </div>
 </div>
