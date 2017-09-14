@@ -1,54 +1,64 @@
-<div ng-controller="MaterialController as mc">
-<div ng-include="'views/partials/nav.html'"></div>
-<div class="container">
+<div ng-controller="MaterialController as mc" >
+        
+    <ng-map id="map" center="[44.97, -93.26]" zoom="12">         
+        <marker position="[44.9614, -93.2876]"></marker>
+    </ng-map>
 
+<div ng-include="'views/partials/nav.html'"></div>
+
+<div class="container" ng-controller="BusinessController as bc" >
+
+<!-- welcome registered user message -->
+<div id="welcome">
     <h1 id="welcome" class="lead">Welcome, {{uc.userObject.userName}}!</h1>
     <button class="btn btn-default" ng-click="uc.userService.logout()">Log Out</button>
 </div>
 
-
-
-<div class="containter"  ng-controller="BusinessController as bc" >
-    <!-- <div ng-controller="MaterialController as mc"> ng-click="mc.showPrompt($event) -->
+<!-- business list window -->
+<div class="containter"   id="bizList" >   
     <button class="md=primary md-raised" id="addBizButton" ng-click="bc.openForm()">Add Business</button> 
-<!-- </div> -->
-
-
-
-
-
-
-
-<div id="bizList">
-
     <div ng-repeat="business in bc.businessData.list">
       <p> {{business.name}} <br> 
           {{ business.street }} <br> 
           {{business.city}}, {{business.state}} {{business.zip}} <br>
           <a href="{{business.website}}">{{business.website}}</a> <br> 
-          <button>Details</button> <br>
-          {{business.description}} <br> 
-          Zero-Waste Offerings:<br>
-        <span ng-repeat="offering in business.offerings">
-          {{offering}}<br>   
-        </span>
-       </p>
+
+          <!-- extra details section -->
+          <button ng-click="bc.showDetails(business)">Details</button> <br>
+          <div ng-show="business.details">
+                {{business.description}} <br> 
+                Zero-Waste Offerings:<br>
+              <span ng-repeat="offering in business.offerings">
+                {{offering}}<br>   
+              </span>
+             </p>
+             <button ng-click="bc.showDetails(business)">Collapse Details</button>
+         </div>
        <button ng-if="uc.userObject.userName==business.user" ng-click="bc.deleteBusiness(business._id)">Delete</button>
        <button ng-if="uc.userObject.userName==business.user">Update</button>
     </div>
 </div>
    
+<!-- messing with google maps autofill -->
 
 
-
-
-
-
-
-
-    <div ng-show="bc.form">
+<!-- input form to post new business -->
+    <div id="inputForm" ng-show="bc.form">
             <h1 class="lead alert alert-danger" role="alert" ng-if="lc.message != ''">{{bc.message}}</h2>
-    <form ng-submit="bc.addBusiness()">
+        <form ng-submit="bc.addBusiness()">
+                <div id="autoFill">
+                        Enter an address: <br/>
+                        <input places-auto-complete size=80
+                          ng-model="bc.address"
+                          component-restrictions="{country:'us'}"
+                          types="{{types}}"
+                          on-place-changed="bc.placeChanged()" /> <br/>
+                        <div ng-show="bc.place">
+                          Address = {{bc.place.formatted_address}} <br/>
+                          Location: {{bc.place.geometry.location}}<br/>
+                        </div>
+                        address : {{bc.address}}
+                 </div> 
             <div>
                 <label for="name">Name:</label>
                 <input type="text" ng-model="bc.newBusiness.name" />
@@ -77,15 +87,20 @@
                     <label for="state">Description:</label>
                     <input type="text" ng-model="bc.newBusiness.description" />
             </div>
-
-
             <input class="btn btn-default" type="submit" name="submit" value="Submit" />
             <a href="#registeredHome" ng-click="bc.openForm()">Cancel</a>
-          </form>
-        </div>
+        </form>
+    </div>
     
-    <!-- attempt at another type of popup form - failed 
+</div>
+</div>
+
+
+
+    <!-- attempt at popup form with Angular Material - failed 
     
+ <div ng-controller="MaterialController as mc"> ng-click="mc.showPrompt($event) 
+
     <div ng-cloak  ng-controller="MaterialController as mc" ng-cloak="">
               
                   <md-content class="md-padding">
@@ -118,6 +133,5 @@
     
     
     
-    </div>
-</div>
+   
 

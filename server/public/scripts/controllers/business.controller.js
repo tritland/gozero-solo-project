@@ -13,11 +13,18 @@ myApp.controller('BusinessController', ['UserService', '$http', 'NgMap', functio
     };
     vm.message = '';
 
-    // NgMap.getMap().then(function(map) {
-    //   console.log(map.getCenter());
-    //   console.log('markers', map.markers);
-    //   console.log('shapes', map.shapes);
-    // });
+
+    vm.placeChanged = function() {
+      vm.place = this.getPlace();
+      console.log('here is all the data in vm.place ==>', vm.place)
+      console.log('location', vm.place.geometry.location);
+      vm.map.setCenter(vm.place.geometry.location);
+    }
+    NgMap.getMap().then(function(map) {
+      vm.map = map;
+    });
+  
+   
 
 //function to show/hide new Business input form
     vm.openForm = function(){

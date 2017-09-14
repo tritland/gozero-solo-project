@@ -90,6 +90,7 @@ li a:hover {
   background-color: #2ac96e;
 }
 
+/* business list display*/
 #bizList {
   margin-left: 30px;
   margin-top: 50px;
@@ -101,15 +102,28 @@ li a:hover {
   z-index: 1;
   background-color: white;
   opacity: 0.9;
+  float: left;
+  
 }
 
 #bizList p, span{
   padding-left: 25px;
 }
 
-#map{
-  
-  
+
+/* input form display */
+#inputForm {
+  margin: auto;
+  border-style: solid;
+  border-width: 1px;
+  width: 30%;
+  position: relative;
+  z-index: 1;
+  background-color: white;
+}
+
+/* working with the google maps display */
+#map{ 
     position:absolute;
     top:0;
     left:0;   
@@ -118,8 +132,12 @@ li a:hover {
     z-index: 1;
 }
 
-/* #container {
-  width: 100px;
-  height: 100px;
+#welcome{
   position: relative;
-} */
+  z-index: 1;
+}
+
+#autoFill {
+  position: relative;
+  z-index: 1;
+}
