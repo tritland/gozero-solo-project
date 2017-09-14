@@ -1,12 +1,17 @@
 <div ng-controller="MaterialController as mc" >
-        
-    <ng-map id="map" center="[44.97, -93.26]" zoom="12">         
-        <marker position="[44.9614, -93.2876]"></marker>
-    </ng-map>
+   
+    
 
 <div ng-include="'views/partials/nav.html'"></div>
 
 <div class="container" ng-controller="BusinessController as bc" >
+
+    <!-- map and markers -->
+        <ng-map id="map" center="[44.97, -93.26]" zoom="12"> 
+               
+            <marker ng-repeat="location in bc.businessData.list" position="[ {{location.latitude}}, {{location.longitude}} ]"></marker> 
+            
+        </ng-map>
 
 <!-- welcome registered user message -->
 <div id="welcome">
@@ -47,7 +52,7 @@
         <form ng-submit="bc.addBusiness()">
                 <div id="autoFill">
                         Enter an address: <br/>
-                        <input places-auto-complete size=80
+                        <input places-auto-complete size=25
                           ng-model="bc.address"
                           component-restrictions="{country:'us'}"
                           on-place-changed="bc.placeChanged()" /> <br/>
