@@ -5,14 +5,15 @@ myApp.controller('BusinessController', ['UserService', '$http', 'NgMap', functio
    
     vm.businessData = UserService.businessData
    
-    vm.newBusiness = { };
+    vm.newBusiness = { offerings: [] };
     
     vm.message = '';
 
 
     vm.placeChanged = function() {
       vm.place = this.getPlace();
-      vm.newBusiness = vm.place
+      vm.newBusiness = vm.place;
+      vm.newBusiness.offerings = [];
       console.log('here is all the data in vm.place ==>', vm.place)
       console.log('location', vm.place.geometry.location);
       vm.map.setCenter(vm.place.geometry.location);
@@ -39,12 +40,35 @@ myApp.controller('BusinessController', ['UserService', '$http', 'NgMap', functio
 
     vm.addBusiness = function() {
       console.log('hit addBusiness post on ==> businessController');
-      console.log('here is the newBusiness object ==>', vm.newBusiness);
+      
       if(vm.newBusiness.name === '' || vm.newBusiness.address === '' ){
         //|| vm.newBusiness.street === '' || vm.newBusiness.city === '' || vm.newBusiness.state === '' || vm.newBusiness.zip === '') {
         vm.message = "Please complete all business name and address information.";
       } else {
         console.log('addBusiness Post on businessController is sending following data to server ==>', vm.newBusiness);
+        
+      //  attempt at adding the offerings to the newBusiness array: 
+        if(vm.bulk != undefined){
+          vm.newBusiness.offerings.push('Bulk groceries');
+        }
+        if(vm.pet != undefined){
+          vm.newBusiness.offerings.push('Pet products');
+        }
+        if(vm.taps != undefined){
+          vm.newBusiness.offerings.push('Taprooms/Fill Growlers');
+        }
+        if(vm.books != undefined){
+          vm.newBusiness.offerings.push('Books');
+        }
+        if(vm.program != undefined){
+          vm.newBusiness.offerings.push('Sharing program');
+        }
+        if(vm.compost != undefined){
+          vm.newBusiness.offerings.push('Uses compostable products');
+        }
+
+        console.log('here is the newBusiness object ==>', vm.newBusiness);
+
 
         $http.post('/business', vm.newBusiness).then(function(response) {
           console.log('addBusiness Post on businessController was a success!');
@@ -55,7 +79,8 @@ myApp.controller('BusinessController', ['UserService', '$http', 'NgMap', functio
             name: '',
             address: '',
             website: '',
-            description: ''
+            description: '',
+            offerings: []
           };
         }).catch(function(response) {
           console.log('addBusiness Post on businessController had an error ==>', response);

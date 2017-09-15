@@ -27,7 +27,7 @@
                 {{business.description}} <br> 
                 Zero-Waste Offerings:<br>
               <span ng-repeat="offering in business.offerings">
-                {{offering}}<br>   
+                <li>{{offering}}</li>   
               </span>
              </p>
              <button ng-click="bc.showDetails(business)">Collapse Details</button>
@@ -68,7 +68,23 @@
             <div>
                     <label for="state">Description:</label>
                     <input type="text" ng-model="bc.newBusiness.description" />
+            
+            <div><br>
+                    <input type="radio" name="type" value="Bulk Grocery Store">Bulk Grocery Store
+                    <input type="radio" name="type" value="Other"> Other
             </div><br>
+            Zero-Waste Offerings:
+            <br><br>
+            <div>
+                    <input type="checkbox" name="offering" ng-model="bc.bulk">Bulk groceries<br>
+                    <input type="checkbox" name="offering" ng-model="bc.pet">Pet products<br>
+                    <input type="checkbox" name="offering" ng-model="bc.taps">Taprooms/Fill Growlers<br>
+                    <input type="checkbox" name="offering" ng-model="bc.books">Books<br>
+                    <input type="checkbox" name="offering" ng-model="bc.program">Sharing program<br>
+                    <input type="checkbox" name="offering" ng-model="bc.compost">Uses compostable products<br>
+                  </div>
+
+               <br>   
             <input class="btn btn-default" type="submit" name="submit" value="Submit" />
             <a href="#registeredHome" ng-click="bc.openForm()">Cancel</a>
         </form>

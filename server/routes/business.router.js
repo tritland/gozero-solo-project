@@ -29,28 +29,13 @@ router.post('/', function(req, res, next) {
         address: req.body.formatted_address,
         website: req.body.website,
         description: req.body.description,
-        offering: req.body.offering,
+        offerings: req.body.offerings,
         latitude: req.body.geometry.location.lat,
         longitude: req.body.geometry.location.lng
     }
 
 var savedBusiness = new Business(businessToSave);
 
-
-
-
-
-//businessToSave.user = req.user.username;
-
-    //   var businessToSave = {
-    //     user: req.body.username,
-    //     name: req.body.name,
-    //     street: req.body.street,
-    //     city: req.body.city,
-    //     zip: req.body.zip,
-    //     // website: req.body.website,
-    //     // description: req.body.description
-    //   };
   
       console.log('this is the savedBusiness ==> ', savedBusiness)
   

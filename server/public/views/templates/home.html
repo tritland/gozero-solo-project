@@ -6,7 +6,8 @@
     <div class="container" ng-controller="BusinessController as bc" >
     
         <!-- map and markers -->
-            <ng-map id="map" center="[44.97, -93.26]" zoom="12"> 
+            <ng-map id="map" center='current-position'
+            geo-fallback-center="[40.74, -74.18]" zoom="12"> 
                    
                 <marker ng-repeat="location in bc.businessData.list" position="[ {{location.latitude}}, {{location.longitude}} ]"></marker> 
                 
@@ -16,7 +17,7 @@
 <div class="containter" id="bizList" ng-controller="BusinessController as bc">
     
 
-    <button class="md=primary md-raised" id="addBizButton" ng-href="#/login">Add New Business</button>
+    <md-button class="md=primary md-raised" id="addBizButton" ng-href="#/login">Add New Business</md-button>
     <div ng-repeat="business in bc.businessData.list">
       <p> {{business.name}} <br> 
         {{ business.address }} <br>

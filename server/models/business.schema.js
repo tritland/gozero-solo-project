@@ -8,7 +8,7 @@ var BusinessSchema = new Schema({
     address: {type: String, required: true},
     website: {type: String},
     description: {type: String},
-    offering: {type: Array},
+    offerings: {type: Array},
     latitude: {type: String},
     longitude:{type: String} 
 
