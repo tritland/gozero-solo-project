@@ -1,8 +1,6 @@
-<div ng-controller="MaterialController as mc" >
-   
-    
+<header ng-include="'views/partials/registeredHeader.html'"></header>
 
-<div ng-include="'views/partials/nav.html'"></div>
+<div ng-controller="MaterialController as mc" >
 
 <div class="container" ng-controller="BusinessController as bc" >
 
@@ -13,11 +11,7 @@
             
         </ng-map>
 
-<!-- welcome registered user message -->
-<div id="welcome">
-    <h1 id="welcome" class="lead">Welcome, {{uc.userObject.userName}}!</h1>
-    <button class="btn btn-default" ng-click="uc.userService.logout()">Log Out</button>
-</div>
+
 
 <!-- business list window -->
 <div class="containter"   id="bizList" >   
@@ -51,17 +45,12 @@
             <h1 class="lead alert alert-danger" role="alert" ng-if="lc.message != ''">{{bc.message}}</h2>
         <form ng-submit="bc.addBusiness()">
                 <div id="autoFill">
-                        Enter an address: <br/>
-                        <input places-auto-complete size=25
+                        Enter a business: <br/>
+                        <input places-auto-complete size=50
                           ng-model="bc.address"
                           component-restrictions="{country:'us'}"
                           on-place-changed="bc.placeChanged()" /> <br/>
-                        <!-- <div ng-show="bc.place">
-                          Address = {{bc.place.formatted_address}} <br/>
-                          Location: {{bc.place.geometry.location}}<br/>
-                        </div>
-                        address : {{bc.address}}
-                        name: {{bc.place.name}} -->
+                    
                  </div> <br><br>
             <div>
                 <label for="name">Name:</label>

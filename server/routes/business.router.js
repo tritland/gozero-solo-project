@@ -28,6 +28,7 @@ router.post('/', function(req, res, next) {
         name: req.body.name,
         address: req.body.formatted_address,
         website: req.body.website,
+        description: req.body.description,
         offering: req.body.offering,
         latitude: req.body.geometry.location.lat,
         longitude: req.body.geometry.location.lng

@@ -6,8 +6,9 @@ var BusinessSchema = new Schema({
     user: {type: String, required: true},
     name: {type: String, required: true},
     address: {type: String, required: true},
-    website:{type: String},
-    offering:{type: String},
+    website: {type: String},
+    description: {type: String},
+    offering: {type: Array},
     latitude: {type: String},
     longitude:{type: String} 
 

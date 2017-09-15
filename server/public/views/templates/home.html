@@ -1,19 +1,25 @@
-<div ng-controller="MaterialController as mc" ></div>
+<header ng-include="'/views/partials/header.html'"></header>
 
-<ng-map id="map" center="[44.97, -93.26]" zoom="12">
 
-  <marker position="[44.9614, -93.2876]"></marker>
-</ng-map>
+<div ng-controller="MaterialController as mc" >
+    
+    <div class="container" ng-controller="BusinessController as bc" >
+    
+        <!-- map and markers -->
+            <ng-map id="map" center="[44.97, -93.26]" zoom="12"> 
+                   
+                <marker ng-repeat="location in bc.businessData.list" position="[ {{location.latitude}}, {{location.longitude}} ]"></marker> 
+                
+            </ng-map>
 
 
 <div class="containter" id="bizList" ng-controller="BusinessController as bc">
     
 
-    <md-button class="md=primary md-raised" id="addBizButton" ng-href="#/login">Add New Business</md-button>
+    <button class="md=primary md-raised" id="addBizButton" ng-href="#/login">Add New Business</button>
     <div ng-repeat="business in bc.businessData.list">
       <p> {{business.name}} <br> 
-          {{ business.street }} <br> 
-          {{business.city}}, {{business.state}} {{business.zip}} <br>
+        {{ business.address }} <br>
 
           <a href="{{business.website}}">{{business.website}}</a> <br> 
 
@@ -30,5 +36,5 @@
       </div>
   </div>
 
-
+</div>
 </div>
