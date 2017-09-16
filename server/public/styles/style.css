@@ -105,6 +105,8 @@ li a:hover {
   background-color: white;
   opacity: 0.9;
   float: left;
+  overflow-y: auto;
+  max-height: 500px;
   
 }
 
