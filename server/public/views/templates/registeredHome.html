@@ -5,10 +5,16 @@
     <div class="container" ng-controller="BusinessController as bc">
 
         <!-- map and markers -->
-        <ng-map id="map" center='current-position' zoom="12">
+        <ng-map default-style="false" id="map" center='current-position' zoom="12">
 
-            <marker ng-repeat="location in bc.businessData.list" position="[ {{location.latitude}}, {{location.longitude}} ]"></marker>
-
+            <marker ng-repeat="business in bc.businessData.list" position="[ {{business.latitude}}, {{business.longitude}} ]" on-click="bc.showDeets(business)"></marker>
+<info-window id="infoWindow">
+    <div ng-non-bindable="">
+        {{bc.businessData.business.name}}<br>
+        {{bc.businessData.business.address}}<br>
+        <a href="{{bc.businessData.business.website}}">{{bc.businessData.business.website}}</a><br>
+    </div>
+</info-window>
         </ng-map>
 
 
@@ -139,7 +145,6 @@
                 <a href="#registeredHome" ng-click="bc.openForm()">Cancel</a>
             </form>
         </div>
-{{bc.newBusiness}}
 
 
 

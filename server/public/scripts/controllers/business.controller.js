@@ -7,6 +7,15 @@ myApp.controller('BusinessController', ['BusinessService', 'NgMap', function (Bu
     vm.newBusiness = { offerings: [] };   
     vm.message = '';
     
+    vm.map = {};
+    NgMap.getMap("map").then(function(map){
+      console.log('this is that map', map);
+      vm.map = map;
+    })
+
+
+
+
 // maps autofill function
 vm.placeChanged = function() {
   vm.place = this.getPlace();
@@ -15,6 +24,12 @@ vm.placeChanged = function() {
   vm.newBusiness.latitude = vm.place.geometry.location.lat();
   vm.newBusiness.longitude = vm.place.geometry.location.lng();
   //console.log('here is all the data in vm.place ==>', vm.place)
+}
+
+
+vm.showDeets = function(e, business) {
+  vm.businessData.business = business
+  vm.map.showInfoWindow('infoWindow', this);
 }
 
 // runs the function in our service that communicates to the user services to get businesses off of the database      

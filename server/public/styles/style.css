@@ -139,14 +139,17 @@ li a:hover {
 }
 
 /* working with the google maps display */
-#map{ 
-    position:absolute;
-    top:0;
-    left:0;   
-    width:100%;
-    height:100%;
-    z-index: 1;
+ng-map{ 
+  width:100%; 
+  height:100%;
+  position: absolute;
+  top:0;
+  /* left:0;    */
+  z-index: 1;
 }
+
+
+
 
 #welcome{
   position: relative;
