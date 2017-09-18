@@ -31,7 +31,8 @@ router.post('/', function(req, res, next) {
         description: req.body.description,
         offerings: req.body.offerings,
         latitude: req.body.geometry.location.lat,
-        longitude: req.body.geometry.location.lng
+        longitude: req.body.geometry.location.lng,
+        type: req.body.type,
     }
 
 var savedBusiness = new Business(businessToSave);

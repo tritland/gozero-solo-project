@@ -9,10 +9,10 @@ var BusinessSchema = new Schema({
     website: {type: String},
     description: {type: String},
     offerings: {type: Array},
-    latitude: {type: String},
-    longitude:{type: String} 
-
-
+    latitude: {type: String, required: true},
+    longitude: {type: String, required: true},
+    type: {type: String},
+    
     },
     
     {collection:
@@ -21,12 +21,3 @@ var BusinessSchema = new Schema({
 );
 
 module.exports = mongoose.model('Business', BusinessSchema);
-
-
-
-// street: {type: String},
-// city: {type: String},
-// zip: {type: String},
-// description: {type: String},
-// offerings: {type: Array},    
-// image_url: {type: String}

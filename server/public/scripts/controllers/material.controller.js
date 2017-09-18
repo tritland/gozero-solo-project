@@ -1,5 +1,5 @@
 myApp.controller('MaterialController', function($mdDialog) {
-    console.log('MaterialController Loaded');
+   // console.log('MaterialController Loaded');
    
     var vm = this;
                   

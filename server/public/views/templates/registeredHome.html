@@ -5,7 +5,7 @@
     <div class="container" ng-controller="BusinessController as bc">
 
         <!-- map and markers -->
-        <ng-map id="map" center="[44.97, -93.26]" zoom="12">
+        <ng-map id="map" center='current-position' zoom="12">
 
             <marker ng-repeat="location in bc.businessData.list" position="[ {{location.latitude}}, {{location.longitude}} ]"></marker>
 
@@ -96,10 +96,14 @@
             <form ng-submit="bc.addBusiness()">
                 <div id="autoFill">
                     <label for="autoComplete">Enter a business: </label>
-                    <input places-auto-complete size=50 component-restrictions="{country:'us'}" on-place-changed="bc.placeChanged()" />                    <br/>
+                    <input places-auto-complete size=50 component-restrictions="{country:'us'}" mg-model="bc.address" on-place-changed="bc.placeChanged()" />                    <br/>
 
                 </div> <br><br>
-                <div>
+                    Name: {{bc.newBusiness.name}}<br><br>
+                    Address: {{bc.newBusiness.formatted_address}}<br><br>
+                    Website: {{bc.newBusiness.website}}<br><br>
+
+                <!-- <div>
                     <label for="name">Name:</label>
                     <input type="text" ng-model="bc.newBusiness.name" />
                 </div><br>
@@ -111,14 +115,14 @@
                 <div>
                     <label for="website">Website:</label>
                     <input type="text" ng-model="bc.newBusiness.website" />
-                </div><br>
+                </div><br> -->
                 <div>
                     <label for="state">Description:</label>
                     <input type="text" ng-model="bc.newBusiness.description" />
                 </div>
                 <div><br>
-                    <input type="radio" name="type" value="Bulk Grocery Store">Bulk Grocery Store
-                    <input type="radio" name="type" value="Other"> Other
+                    <input type="radio" name="type" ng-model="bc.newBusiness.type" value="grocery">Bulk Grocery Store
+                    <input type="radio" name="type" ng-model="bc.newBusiness.type" value="other"> Other
                 </div><br> Zero-Waste Offerings:
                 <br><br>
                 <div>
@@ -135,7 +139,7 @@
                 <a href="#registeredHome" ng-click="bc.openForm()">Cancel</a>
             </form>
         </div>
-
+{{bc.newBusiness}}
 
 
 
