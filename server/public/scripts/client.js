@@ -1,4 +1,8 @@
-var myApp = angular.module('myApp', ['ngRoute', 'ngMaterial', 'ngMap']);
+var myApp = angular.module('myApp', ['ngRoute', 'ngMaterial', 'ngMap', 'xeditable']);
+
+myApp.run(function(editableOptions){
+  editableOptions.theme = 'default';
+})
 
 /// Routes ///
 myApp.config(function($routeProvider, $locationProvider) {

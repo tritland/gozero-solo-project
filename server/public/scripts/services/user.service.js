@@ -3,11 +3,11 @@ myApp.factory('UserService', function($http, $location){
 
   var userObject = {};
   //object to populate with business data from database
-  var businessData = {list:[]};
+  //var businessData = {list:[]};
 
   return {
     userObject : userObject,
-    businessData: businessData,
+   // businessData: businessData,
 
     getuser : function(){
       console.log('UserService -- getuser');
@@ -36,15 +36,18 @@ myApp.factory('UserService', function($http, $location){
     },
 
     //get request for businesses from database
-    getBusinesses: function () {
-      $http.get('/business').then(function (response) {
-        console.log('response is', response)
-        if (response.status == 200) {
-          businessData.list = response.data;
-          console.log('response from business get request ==> ', response.data);     
-        }
-      });
-    }
+    // getBusinesses: function () {
+    //   $http.get('/business').then(function (response) {
+    //     console.log('response is', response)
+    //     if (response.status == 200) {
+    //       businessData.list = response.data;
+    //       console.log('response from business get request ==> ', response.data);     
+    //     }
+    //   });
+    // }
+
+   
+
 
   };
 });

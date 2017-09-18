@@ -6,14 +6,14 @@ var Business = require('../models/business.schema.js');
 
 //gets all documents from 'businesses' collection
 router.get('/', function (req, res) {
-    console.log('hit business get route');
+     console.log('hit business get route');
     Business.find({}, function (err, data) {
         if (err) {
-            console.log('find error', err);
+     console.log('find error', err);
             res.sendStatus(500);
         } else {
             res.send(data);
-            console.log(data);
+    //console.log(data);
         };
     });
 });
@@ -21,7 +21,7 @@ router.get('/', function (req, res) {
 
 // Handles POST request with new business data
 router.post('/', function(req, res, next) {
-    console.log('post /business route');
+    // console.log('post /business route');
   
  var businessToSave = {
         user: req.user.username,
@@ -37,10 +37,10 @@ router.post('/', function(req, res, next) {
 var savedBusiness = new Business(businessToSave);
 
   
-      console.log('this is the savedBusiness ==> ', savedBusiness)
+    //   console.log('this is the savedBusiness ==> ', savedBusiness)
   
       Business.create(savedBusiness, function(err, post) {
-        console.log('post /business -- Business.create');
+        // console.log('post /business -- Business.create');
            if(err) {
              console.log('post /business -- Business.create -- failure');
              res.sendStatus(500);
@@ -57,21 +57,21 @@ var savedBusiness = new Business(businessToSave);
     
             var businessToDelete = {};
     
-            console.log('req.params.id ==>', req.params.id);
+            // console.log('req.params.id ==>', req.params.id);
             
     
             Business.findById(req.params.id, function(err, data){
                 if (err){
-                    console.log('delete find error:', err);
+                    // console.log('delete find error:', err);
                     res.sendStatus(500);
                 } else {
-                    console.log('no result');
-                    console.log('data:', data);
+                    // console.log('no result');
+                    // console.log('data:', data);
                     
                     businessToDelete = data;
                 } 
-                console.log('Current user ==>', req.user.username);
-                console.log('User who placed item ==>', businessToDelete.user);
+                // console.log('Current user ==>', req.user.username);
+                // console.log('User who placed item ==>', businessToDelete.user);
                 
                 if (req.user.username === businessToDelete.user){ // is the user the same one who added it?
                     Business.findByIdAndRemove({ _id: req.params.id }, function (err) {
@@ -89,5 +89,48 @@ var savedBusiness = new Business(businessToSave);
         };
     });
 
+
+    router.put('/', function (req, res) {
+        
+            if (req.isAuthenticated()) { // is the user logged in?
+                // var businessToUpdate = {};
+                console.log('req.body ==>', req.body);
+                console.log('req.user ==>', req.user);
+                // Business.findById({ _id: req.body.id }, function(err, data){
+                //     if (err){
+                //         console.log('delete find error:', err);
+                //         res.sendStatus(500);
+                //     } else {
+                //         console.log('no result');
+                //         console.log('data:', data);
+                //         businessToUpdate = data;
+                //     } 
+                //     console.log('Current user ==>', req.user.username);
+                    //console.log('User who wants to update ==>', businessToUpdate.user);
+                    // console.log("business to update", businessToUpdate);
+                    if (req.user.username === req.body.user){ // is the user the same one who added it?
+                        Business.findByIdAndUpdate({
+                             _id: req.body._id 
+                            },
+                            {
+                               $set: {
+                                   description: req.body.description
+                               }     
+                        }, function (err, data) {
+                            if (err) {
+                                console.log('update error', err);
+                                res.sendStatus(500);
+                            } else {
+                                res.sendStatus(200);
+                            };
+                        });
+                    } else {
+                        console.log("wtf");
+                        res.sendStatus(500);
+                    };
+                };
+            });                      
+            // };
+        // });
 
 module.exports = router;
