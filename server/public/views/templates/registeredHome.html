@@ -7,7 +7,7 @@
         <!-- map and markers -->
         <ng-map default-style="false" id="map" center='current-position' zoom="12">
 
-            <marker ng-repeat="business in bc.businessData.list" position="[ {{business.latitude}}, {{business.longitude}} ]" on-click="bc.showDeets(business)"></marker>
+            <marker ng-repeat="business in bc.businessData.list" icon="{{bc.getIcon(business)}}" position="[ {{business.latitude}}, {{business.longitude}} ]" on-click="bc.showDeets(business)"></marker>
 <info-window id="infoWindow">
     <div ng-non-bindable="">
         {{bc.businessData.business.name}}<br>
@@ -30,7 +30,9 @@
                     <button ng-click="bc.showDetails(business)">Details</button> 
                     <br>
                     <div ng-show="business.details">
-                        <span editable-text="business.description" e-label="">{{business.description || 'empty'}}</span> <br> Zero-Waste Offerings:<br>
+                        <span editable-text="business.description" e-label="">{{business.description || 'empty'}}</span> <br> <br>
+                        
+                        Zero-Waste Offerings:<br>
                         <span ng-repeat="offering in business.offerings">
                 {{offering}}<br>   
               </span></p>
@@ -39,61 +41,11 @@
               <button ng-click="bc.showDetails(business)">Collapse Details</button>
               
             </div>
-                    <!-- update form to edit business -->
-
-        <div id="updateForm" ng-show="bc.updateForm">
-
-            <div>
-
-            <h1 class="lead alert alert-danger" role="alert" ng-if="lc.message != ''">{{bc.message}}</h1>
-                <form ng-submit="bc.updateBusiness()">
-                    <div id="autoFill">
-                        <label for="autoComplete">Enter a business: </label>
-                        <input places-auto-complete size=50 component-restrictions="{country:'us'}" on-place-changed="bc.placeChanged()" />                        <br/>
-
-                    </div> <br><br>
-
-                    <div>
-                        <label for="website">Website:</label>
-                        <input type="text" ng-model="business.website" />
-                    </div><br>
-                    <div>
-                        <label for="state">Description:</label>
-                        <input type="text" ng-model="business.description" />
-                    </div><br>
-
-            </div> 
-
-                    <div>
-                        <input type="radio" name="type" value="Bulk Grocery Store">Bulk Grocery Store
-                        <input type="radio" name="type" value="Other"> Other
-                    </div><br> Zero-Waste Offerings:
-                    <br><br>
-                    <div>
-                        <input type="checkbox" name="offering" ng-model="bc.bulk">Bulk groceries<br>
-                        <input type="checkbox" name="offering" ng-model="bc.pet">Pet products<br>
-                        <input type="checkbox" name="offering" ng-model="bc.taps">Taprooms/Fill Growlers<br>
-                        <input type="checkbox" name="offering" ng-model="bc.books">Books<br>
-                        <input type="checkbox" name="offering" ng-model="bc.program">Sharing program<br>
-                        <input type="checkbox" name="offering" ng-model="bc.compost">Uses compostable products<br>
-                    </div>
-
-                    <br>
-                    <input class="btn btn-default" type="submit" name="submit" value="Submit" />
-                    <a href="#registeredHome" ng-click="bc.openUpdateForm()">Cancel</a>
-                </form>
-                
-        </div>  
-                
-            
+   
             <button ng-if="uc.userObject.userName==business.user" ng-click="bc.deleteBusiness(business._id)">Delete</button>
             
         </div>
         </div>
-
-
-        <!-- messing with google maps autofill -->
-
 
         <!-- input form to post new business -->
 
@@ -146,8 +98,50 @@
             </form>
         </div>
 
-
-
-
     </div>
 </div>
+
+
+
+
+<!-- update form to edit business 
+
+<div id="updateForm" ng-show="bc.updateForm">
+        
+                    <h1 class="lead alert alert-danger" role="alert" ng-if="lc.message != ''">{{bc.message}}</h1>
+                        <form ng-submit="bc.updateBusiness()">
+                            <div id="autoFill">
+                                <label for="autoComplete">Enter a business: </label>
+                                <input places-auto-complete size=50 component-restrictions="{country:'us'}" on-place-changed="bc.placeChanged()" />                        <br/>
+        
+                            </div> <br><br>
+        
+                            <div>
+                                <label for="website">Website:</label>
+                                <input type="text" ng-model="business.website" />
+                            </div><br>
+                            <div>
+                                <label for="state">Description:</label>
+                                <input type="text" ng-model="business.description" />
+                            </div><br>
+        
+                            <div>
+                                <input type="radio" name="type" value="Bulk Grocery Store">Bulk Grocery Store
+                                <input type="radio" name="type" value="Other"> Other
+                            </div><br> Zero-Waste Offerings:
+                            <br><br>
+                            <div>
+                                <input type="checkbox" name="offering" ng-model="bc.bulk">Bulk groceries<br>
+                                <input type="checkbox" name="offering" ng-model="bc.pet">Pet products<br>
+                                <input type="checkbox" name="offering" ng-model="bc.taps">Taprooms/Fill Growlers<br>
+                                <input type="checkbox" name="offering" ng-model="bc.books">Books<br>
+                                <input type="checkbox" name="offering" ng-model="bc.program">Sharing program<br>
+                                <input type="checkbox" name="offering" ng-model="bc.compost">Uses compostable products<br>
+                            </div>
+        
+                            <br>
+                            <input class="btn btn-default" type="submit" name="submit" value="Submit" />
+                            <a href="#registeredHome" ng-click="bc.openUpdateForm()">Cancel</a>
+                        </form>
+                        
+                </div> -->

@@ -6,14 +6,17 @@ myApp.controller('BusinessController', ['BusinessService', 'NgMap', function (Bu
     vm.businessData = BusinessService.businessData  
     vm.newBusiness = { offerings: [] };   
     vm.message = '';
-    
+
     vm.map = {};
     NgMap.getMap("map").then(function(map){
       console.log('this is that map', map);
       vm.map = map;
-    })
+    });
 
-
+    vm.showDeets = function(e, business) {
+      vm.businessData.business = business
+      vm.map.showInfoWindow('infoWindow', this);
+    };
 
 
 // maps autofill function
@@ -26,11 +29,17 @@ vm.placeChanged = function() {
   //console.log('here is all the data in vm.place ==>', vm.place)
 }
 
+vm.getIcon = function(business) {
+  var purple = '/assets/purple.png';
+  var orange = '/assets/orange.png';
 
-vm.showDeets = function(e, business) {
-  vm.businessData.business = business
-  vm.map.showInfoWindow('infoWindow', this);
-}
+  if (business.type === "grocery"){
+    return purple;
+  } else {
+    return orange;
+  };
+};
+
 
 // runs the function in our service that communicates to the user services to get businesses off of the database      
 vm.getBusinesses = function(){
