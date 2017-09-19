@@ -1,7 +1,7 @@
 myApp.controller('BusinessController', ['BusinessService', 'NgMap', function (BusinessService, NgMap) { // BusinessController talks to UserService
    // console.log('BusinessController created');
     var vm = this;
-    vm.form = false; 
+    vm.newForm = false; 
     vm.updateForm = false; 
     vm.businessData = BusinessService.businessData  
     vm.newBusiness = { offerings: [] };   
@@ -9,7 +9,6 @@ myApp.controller('BusinessController', ['BusinessService', 'NgMap', function (Bu
 
     vm.map = {};
     NgMap.getMap("map").then(function(map){
-      console.log('this is that map', map);
       vm.map = map;
     });
 
@@ -71,10 +70,6 @@ vm.addBusiness = function(){
       if(vm.compost != undefined){
         vm.newBusiness.offerings.push('Uses compostable products');
       }
-    
-      console.log('this the grocery radio button value', vm.newBusiness.grocery);
-      console.log('this the other radio button value', vm.newBusiness.other);
-    console.log('here is the newBusiness object ==>', vm.newBusiness);
 
   BusinessService.addBusiness(vm.newBusiness);
     vm.openForm();
@@ -91,8 +86,8 @@ vm.updateBusiness = function(business){
 }
 
 // function to show/hide new Business input form on button click
-    vm.openForm = function(){
-      vm.form = !vm.form;
+    vm.openNewForm = function(){
+      vm.newForm = !vm.newForm;
     };
 
 // function to show extra details on button click    
@@ -102,8 +97,7 @@ vm.updateBusiness = function(business){
 
 
 // function to show/hide update form on button click
-    vm.openUpdateForm = function(){
-      console.log('update button clicked');
+    vm.openUpdateForm = function(business){
       vm.updateForm = !vm.updateForm;
     };
 
