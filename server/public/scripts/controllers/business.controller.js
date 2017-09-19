@@ -1,112 +1,116 @@
 myApp.controller('BusinessController', ['BusinessService', 'NgMap', function (BusinessService, NgMap) { // BusinessController talks to UserService
-   // console.log('BusinessController created');
-    var vm = this;
-    vm.newForm = false; 
-    vm.updateForm = false; 
-    vm.businessData = BusinessService.businessData  
-    vm.newBusiness = { offerings: [] };   
-    vm.message = '';
+  // console.log('BusinessController created');
+  var vm = this;
+  vm.newForm = false;
+  vm.updateForm = false;
+  vm.businessData = BusinessService.businessData
+  vm.newBusiness = { offerings: [] };
+  vm.message = '';
+  vm.businessToEdit = BusinessService.businessToEdit
 
-    vm.map = {};
-    NgMap.getMap("map").then(function(map){
-      vm.map = map;
-    });
+  vm.map = {};
+  NgMap.getMap("map").then(function (map) {
+    vm.map = map;
+  });
 
-    vm.showDeets = function(e, business) {
-      vm.businessData.business = business
-      vm.map.showInfoWindow('infoWindow', this);
-    };
-
-
-// maps autofill function
-vm.placeChanged = function() {
-  vm.place = this.getPlace();
-  vm.newBusiness = vm.place;
-  vm.newBusiness.offerings = [];
-  vm.newBusiness.latitude = vm.place.geometry.location.lat();
-  vm.newBusiness.longitude = vm.place.geometry.location.lng();
-  //console.log('here is all the data in vm.place ==>', vm.place)
-}
-
-vm.getIcon = function(business) {
-  var purple = '/assets/purple.png';
-  var orange = '/assets/orange.png';
-
-  if (business.type === "grocery"){
-    return purple;
-  } else {
-    return orange;
+  vm.showDeets = function (e, business) {
+    vm.businessData.business = business
+    vm.map.showInfoWindow('infoWindow', this);
   };
-};
 
 
-// runs the function in our service that communicates to the user services to get businesses off of the database      
-vm.getBusinesses = function(){
-BusinessService.getBusinesses(); 
-};
+  // maps autofill function
+  vm.placeChanged = function () {
+    vm.place = this.getPlace();
+    vm.newBusiness = vm.place;
+    vm.newBusiness.offerings = [];
+    vm.newBusiness.latitude = vm.place.geometry.location.lat();
+    vm.newBusiness.longitude = vm.place.geometry.location.lng();
+    //console.log('here is all the data in vm.place ==>', vm.place)
+  }
 
-vm.addBusiness = function(){
-  console.log('clicked add business');
-  console.log('hit addBusiness post on ==> businessController');  
-  if(vm.newBusiness.name === '' || vm.newBusiness.address === '' ){
+  vm.getIcon = function (business) {
+    var purple = '/assets/purple.png';
+    var orange = '/assets/orange.png';
+
+    if (business.type === "grocery") {
+      return purple;
+    } else {
+      return orange;
+    };
+  };
+
+
+  // runs the function in our service that communicates to the user services to get businesses off of the database      
+  vm.getBusinesses = function () {
+    BusinessService.getBusinesses();
+  };
+
+  vm.addBusiness = function () {
+    console.log('clicked add business');
+    console.log('hit addBusiness post on ==> businessController');
+    if (vm.newBusiness.name === '' || vm.newBusiness.address === '') {
       vm.message = "Please complete all business name and address information.";
-  } else {
+    } else {
 
-      if(vm.bulk != undefined){
+      if (vm.bulk != undefined) {
         vm.newBusiness.offerings.push('Bulk groceries');
       }
-      if(vm.pet != undefined){
+      if (vm.pet != undefined) {
         vm.newBusiness.offerings.push('Pet products');
       }
-      if(vm.taps != undefined){
+      if (vm.taps != undefined) {
         vm.newBusiness.offerings.push('Taprooms/Fill Growlers');
       }
-      if(vm.books != undefined){
+      if (vm.books != undefined) {
         vm.newBusiness.offerings.push('Books');
-      }   
-      if(vm.program != undefined){
+      }
+      if (vm.program != undefined) {
         vm.newBusiness.offerings.push('Sharing program');
       }
-      if(vm.compost != undefined){
+      if (vm.compost != undefined) {
         vm.newBusiness.offerings.push('Uses compostable products');
       }
 
-  BusinessService.addBusiness(vm.newBusiness);
-    vm.openForm();
-    vm.newBusiness = {offerings: []};
+      BusinessService.addBusiness(vm.newBusiness);
+      vm.openNewForm();
+      vm.newBusiness = { offerings: [] };
+    };
   };
-};
 
-vm.deleteBusiness = function (id) {
-  BusinessService.deleteBusiness(id);  
-};
+  // function to show/hide new Business input form on button click
+  vm.openNewForm = function (business) {
+    vm.newForm = !vm.newForm;
+  };
 
-vm.updateBusiness = function(business){
-  BusinessService.updateBusiness(business);  
-}
+  // function to show extra details on button click    
+  vm.showDetails = function (business) {
+    business.details = !business.details;
+    BusinessService.fillUpdateForm(business)
+  };
 
-// function to show/hide new Business input form on button click
-    vm.openNewForm = function(){
-      vm.newForm = !vm.newForm;
-    };
+  // function to show/hide update form on button click
+  vm.openUpdateForm = function (business) {
+    vm.updateForm = !vm.updateForm;
+  };
 
-// function to show extra details on button click    
-    vm.showDetails = function(business){
-      business.details = !business.details;
-    }
+  vm.deleteBusiness = function (id) {
+    BusinessService.deleteBusiness(id);
+  };
 
+  vm.updateBusiness = function (business) {
+    console.log(business);
+    BusinessService.updateBusiness(business);
+  };
 
-// function to show/hide update form on button click
-    vm.openUpdateForm = function(business){
-      vm.updateForm = !vm.updateForm;
-    };
-
-// function to get list of businesses
-    vm.getBusinesses();
+  // function to get list of businesses
+  vm.getBusinesses();
 
 }]);
- 
 
+
+
+//old post form with catch:
 //         $http.post('/business', vm.newBusiness).then(function(response) {
 //           console.log('addBusiness Post on businessController was a success!');
 //           //$location.path('/registeredHome');

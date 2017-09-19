@@ -29,21 +29,17 @@
                     <button ng-click="bc.showDetails(business)">Details</button>
                     <br>
                     <div ng-show="business.details">
-                        <!-- This was an attempt to use xeditable but I didn't like how it functioned: 
-                                <span editable-text="business.description" e-label="">{{business.description || 'empty'}}</span>  -->
+                        Description: {{business.description}}<br>
                         <br>
                         <br> Zero-Waste Offerings:<br>
                         <span ng-repeat="offering in business.offerings">
                              {{offering}}<br>   
                         </span>
                 </p>
-                <!-- <button ng-if="uc.userObject.userName==business.user" ng-click="bc.openUpdateForm()">Save</button> -->
-                <!-- <button ng-if="uc.userObject.userName==business.user" ng-click="bc.updateBusiness(business)">Save</button>  -->
                 <button ng-click="bc.showDetails(business)">Collapse Details</button><br><br>
-                </div>
-
                 <button ng-if="uc.userObject.userName==business.user" ng-click="bc.deleteBusiness(business._id)">Delete</button>
-                <button ng-if="uc.userObject.userName==business.user" ng-click="bc.openUpdateForm(business._id)">Update</button>
+                <button ng-if="uc.userObject.userName==business.user" ng-click="bc.openUpdateForm(business)">Update</button>
+                </div>
             </div>
         </div>
 
@@ -80,7 +76,6 @@
                     <input type="checkbox" name="offering" ng-model="bc.program">Sharing program<br>
                     <input type="checkbox" name="offering" ng-model="bc.compost">Uses compostable products<br>
                 </div>
-
                 <br>
                 <input class="btn btn-default" type="submit" name="submit" value="Submit" />
                 <a href="#registeredHome" ng-click="bc.openNewForm()">Cancel</a>
@@ -89,14 +84,14 @@
 
 
         <!-- UPDATE BUSINESS FORM -->
-        <div id="updateForm" ng-show="bc.updateForm">
-            <form ng-submit="bc.updateBusiness()">
-                BUSINESS NAME:
+        <div id="updateForm" ng-show="bc.updateForm" >
+            <form ng-submit="bc.updateBusiness(bc.businessToEdit.currentData)">
                 <div>
                     <label for="state">Description:</label>
-                    <input type="text" ng-model="business.description" />
+                    <input type="text" ng-model="bc.businessToEdit.currentData.description"/>
                 </div>
                 <br>
+                <!-- bc: {{bc.businessToEdit}} -->
                 <div>
                     <input type="radio" name="type" value="Bulk Grocery Store">Bulk Grocery Store
                     <input type="radio" name="type" value="Other"> Other
@@ -112,7 +107,7 @@
                     <input type="checkbox" name="offering" ng-model="bc.compost">Uses compostable products<br>
                 </div>
                 <br>
-                <input class="btn btn-default" type="submit" name="submit" value="Submit" />
+                <input class="btn btn-default" type="submit" name="submit" value="Submit" ng-click="bc.openUpdateForm()" />
                 <a href="#registeredHome" ng-click="bc.openUpdateForm()">Cancel</a>
             </form>
         </div>
@@ -137,3 +132,8 @@
                     <label for="website">Website:</label>
                     <input type="text" ng-model="bc.newBusiness.website" />
                 </div><br> -->
+
+
+ <!-- This was an attempt to use xeditable but I didn't like how it functioned. I had it under ng-show in the Business List Window: 
+                 <span editable-text="business.description" e-label="">{{business.description || 'empty'}}</span>  
+                <button ng-if="uc.userObject.userName==business.user" ng-click="bc.updateBusiness(business)">Save</button>  -->

@@ -2,6 +2,7 @@ myApp.service('BusinessService', ['$http', function ($http, $location) {
   
 var self = this;
 self.businessData = { list: [] };
+self.businessToEdit = { currentData: {} };
     
 //get request for businesses from database
 self.getBusinesses = function () {
@@ -27,9 +28,14 @@ self.deleteBusiness = function(id){
     });
 };
 
+self.fillUpdateForm = function(business){
+    self.businessToEdit.currentData = business;
+};
+
 //put request to update selected business
 self.updateBusiness = function(business){
     $http.put('/business', business).then(function(response){
+        
         self.getBusinesses();
     });
 };
