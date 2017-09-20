@@ -9,7 +9,7 @@
                 on-click="bc.showDeets(business)"></marker>
             <info-window id="infoWindow">
                 <div ng-non-bindable="">
-                   {{bc}} {{bc.businessData.business.name}}<br> {{bc.businessData.business.address}}
+                   {{bc.businessData.business.name}}<br> {{bc.businessData.business.address}}
                     <br>
                     <a href="{{bc.businessData.business.website}}">{{bc.businessData.business.website}}</a><br>
                 </div>
@@ -63,10 +63,11 @@
                     <input type="text" ng-model="bc.newBusiness.place.description" />
                 </div>
                 <br>
-                <div ng-repeat="type in bc.newBusiness.place.type">
-                    <input type="radio" name="type" ng-model="type.is_type" value="{{type.is_type}}">{{type.name}}
-                    <!-- <input type="radio" name="type" ng-model="bc.newBusiness.place.type" value="other"> Other -->
-                </div><br> 
+                <!-- <div ng-repeat="type in bc.newBusiness.place.type"> -->
+                     <input type="radio" name="type" ng-model="bc.newBusiness.place.type" value="grocery"> Grocery
+                     <input type="radio" name="type" ng-model="bc.newBusiness.place.type" value="other"> Other 
+                <!-- </div> -->
+                <br> 
                 Zero-Waste Offerings:
                 <br>
                 <br>

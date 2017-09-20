@@ -3,7 +3,7 @@ myApp.service('BusinessService', ['$http', function ($http, $location) {
 var self = this;
 self.businessData = { list: [] };
 self.businessToEdit = { currentData: {} };
-    
+
 //get request for businesses from database
 self.getBusinesses = function () {
     $http.get('/business').then(function (response) {

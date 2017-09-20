@@ -11,7 +11,8 @@ var BusinessSchema = new Schema({
     offerings: [{name: String, is_available: Boolean}],
     latitude: {type: String, required: true},
     longitude: {type: String, required: true},
-    type: [{name: String, is_type: Boolean}],
+    type: {type: String, default: 'other'}
+    
     
     },
     

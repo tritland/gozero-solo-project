@@ -37,16 +37,7 @@ myApp.controller('BusinessController', ['BusinessService', 'NgMap', function (Bu
       ]
     
 
-    vm.newBusiness.place.type = [
-      {
-        name: 'Grocery',
-        is_type: false
-      },
-      {
-        name: 'Other',
-        is_type: true
-      }
-    ]
+    vm.newBusiness.place.type = 'other';
 
 
 
@@ -63,7 +54,7 @@ myApp.controller('BusinessController', ['BusinessService', 'NgMap', function (Bu
     var purple = '/assets/purple.png';
     var orange = '/assets/orange.png';
 
-    if (business.type[0].name === 'Grocery') {
+    if (business.type === 'other') {
       return purple;
     } else {
       return orange;
@@ -140,6 +131,7 @@ console.log('newBusiness being sent from controller ==>', vm.newBusiness)
   vm.showDetails = function (business) {
     business.details = !business.details;
     BusinessService.fillUpdateForm(business)
+    console.log('here is what is sent to service from controller when details is clicked -->', business)
   };
 
   // function to show/hide update form on button click
