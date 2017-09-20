@@ -4,9 +4,10 @@ myApp.controller('BusinessController', ['BusinessService', 'NgMap', function (Bu
   vm.newForm = false;
   vm.updateForm = false;
   vm.businessData = BusinessService.businessData
-  vm.newBusiness = { offerings: [] };
   vm.message = '';
   vm.businessToEdit = BusinessService.businessToEdit
+ 
+  
 
   vm.map = {};
   NgMap.getMap("map").then(function (map) {
@@ -21,12 +22,41 @@ myApp.controller('BusinessController', ['BusinessService', 'NgMap', function (Bu
 
   // maps autofill function
   vm.placeChanged = function () {
-    vm.place = this.getPlace();
-    vm.newBusiness = vm.place;
-    vm.newBusiness.offerings = [];
-    vm.newBusiness.latitude = vm.place.geometry.location.lat();
-    vm.newBusiness.longitude = vm.place.geometry.location.lng();
-    //console.log('here is all the data in vm.place ==>', vm.place)
+    vm.newBusiness.place = this.getPlace();
+    vm.newBusiness.place.latitude = vm.newBusiness.place.geometry.location.lat();
+    vm.newBusiness.place.longitude = vm.newBusiness.place.geometry.location.lng();
+    vm.newBusiness.place.offerings =  [
+        {
+          name: 'Bulk Groceries',
+          is_available: false
+        },
+        {
+          name: 'Pet Products',
+          is_available: false
+        }
+      ]
+    
+
+    vm.newBusiness.place.type = [
+      {
+        name: 'Bulk Grocery',
+        is_type: false
+      },
+      {
+        name: 'Other',
+        is_type: false
+      }
+    ]
+
+
+
+
+    
+    // vm.place = this.getPlace();
+    // vm.newBusiness = vm.place;
+    // vm.newBusiness.offerings = [];
+    // vm.newBusiness.latitude = vm.place.geometry.location.lat();
+    // vm.newBusiness.longitude = vm.place.geometry.location.lng();
   }
 
   vm.getIcon = function (business) {
@@ -47,35 +77,58 @@ myApp.controller('BusinessController', ['BusinessService', 'NgMap', function (Bu
   };
 
   vm.addBusiness = function () {
-    console.log('clicked add business');
-    console.log('hit addBusiness post on ==> businessController');
-    if (vm.newBusiness.name === '' || vm.newBusiness.address === '') {
-      vm.message = "Please complete all business name and address information.";
-    } else {
+ 
+    // if (vm.newBusiness.name === '' || vm.newBusiness.address === '') {
+    //   vm.message = "Please complete all business name and address information.";
+    // } else {
 
-      if (vm.bulk != undefined) {
-        vm.newBusiness.offerings.push('Bulk groceries');
-      }
-      if (vm.pet != undefined) {
-        vm.newBusiness.offerings.push('Pet products');
-      }
-      if (vm.taps != undefined) {
-        vm.newBusiness.offerings.push('Taprooms/Fill Growlers');
-      }
-      if (vm.books != undefined) {
-        vm.newBusiness.offerings.push('Books');
-      }
-      if (vm.program != undefined) {
-        vm.newBusiness.offerings.push('Sharing program');
-      }
-      if (vm.compost != undefined) {
-        vm.newBusiness.offerings.push('Uses compostable products');
-      }
+      // if (vm.bulk != undefined) {
+      //   var bulk = {
+      //     name: 'Bulk Groceries',
+      //     is_available: true
+      //   }
+      //   vm.newBusiness.offerings.push(bulk);
+      // } else {
+      //   var bulk = {
+      //     name: 'Bulk Groceries',
+      //     is_available: false
+      //   }
+      //   vm.newBusiness.offerings.push(bulk);
+      // }
 
+
+      // if (vm.pet != undefined) {
+      //   var pet = {
+      //     name: 'Pet products',
+      //     is_available: true
+      //   }
+      //   vm.newBusiness.offerings.push(pet);
+      // } else {
+      //   var pet = {
+      //     name: 'Pet products',
+      //     is_available: false
+      //   }
+      //   vm.newBusiness.offerings.push(pet);
+      // }
+
+
+      // if (vm.taps != undefined) {
+      //   vm.newBusiness.offerings.push('Taprooms/Fill Growlers');
+      // }
+      // if (vm.books != undefined) {
+      //   vm.newBusiness.offerings.push('Books');
+      // }
+      // if (vm.program != undefined) {
+      //   vm.newBusiness.offerings.push('Sharing program');
+      // }
+      // if (vm.compost != undefined) {
+      //   vm.newBusiness.offerings.push('Uses compostable products');
+      // }
+console.log('newBusiness being sent from controller ==>', vm.newBusiness)
       BusinessService.addBusiness(vm.newBusiness);
       vm.openNewForm();
       vm.newBusiness = { offerings: [] };
-    };
+    // };
   };
 
   // function to show/hide new Business input form on button click

@@ -21,27 +21,28 @@ router.get('/', function (req, res) {
 
 // Handles POST request with new business data
 router.post('/', function(req, res, next) {
-    // console.log('post /business route');
-  
+    console.log('post /business route');
+
+
  var businessToSave = {
         user: req.user.username,
-        name: req.body.name,
-        address: req.body.formatted_address,
-        website: req.body.website,
-        description: req.body.description,
-        offerings: req.body.offerings,
-        latitude: req.body.geometry.location.lat,
-        longitude: req.body.geometry.location.lng,
-        type: req.body.type,
+        name: req.body.place.name,
+        address: req.body.place.formatted_address,
+        website: req.body.place.website,
+        description: req.body.place.description,
+        offerings: req.body.place.offerings,
+        latitude: req.body.place.latitude,
+        longitude: req.body.place.longitude,
+        type: req.body.place.type,
     }
 
 var savedBusiness = new Business(businessToSave);
 
   
-    //   console.log('this is the savedBusiness ==> ', savedBusiness)
+       console.log('this is the savedBusiness ==> ', savedBusiness)
   
       Business.create(savedBusiness, function(err, post) {
-        // console.log('post /business -- Business.create');
+         console.log('post /business -- Business.create');
            if(err) {
              console.log('post /business -- Business.create -- failure');
              res.sendStatus(500);

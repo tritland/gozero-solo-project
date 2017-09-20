@@ -9,7 +9,7 @@
                 on-click="bc.showDeets(business)"></marker>
             <info-window id="infoWindow">
                 <div ng-non-bindable="">
-                    {{bc.businessData.business.name}}<br> {{bc.businessData.business.address}}
+                   {{bc}} {{bc.businessData.business.name}}<br> {{bc.businessData.business.address}}
                     <br>
                     <a href="{{bc.businessData.business.website}}">{{bc.businessData.business.website}}</a><br>
                 </div>
@@ -32,8 +32,8 @@
                         Description: {{business.description}}<br>
                         <br>
                         <br> Zero-Waste Offerings:<br>
-                        <span ng-repeat="offering in business.offerings">
-                             {{offering}}<br>   
+                        <span ng-repeat="offering in business.offerings" ng-if="offering.is_available==true">
+                             {{offering.name}}<br>   
                         </span>
                 </p>
                 <button ng-click="bc.showDetails(business)">Collapse Details</button><br><br>
@@ -50,31 +50,27 @@
             <form ng-submit="bc.addBusiness()">
                 <div id="autoFill">
                     <label for="autoComplete">Enter a business: </label>
-                    <input places-auto-complete size=50 component-restrictions="{country:'us'}" ng-model="bc.address" on-place-changed="bc.placeChanged()"
+                    <input places-auto-complete size=50 component-restrictions="{country:'us'}" ng-model="bc.newBusiness.place.autofilladdress" on-place-changed="bc.placeChanged()"
                     /><br/>
                 </div>
+                
                 <br>
-                <br> Name: {{bc.newBusiness.name}}<br><br> Address: {{bc.newBusiness.formatted_address}}<br><br> Website:
-                {{bc.newBusiness.website}}
+                <br> Name: {{bc.newBusiness.place.name}}<br><br> Address: {{bc.newBusiness.place.formatted_address}}<br><br> Website:
+                {{bc.newBusiness.place.website}}
                 <br><br>
                 <div>
                     <label for="state">Description:</label>
-                    <input type="text" ng-model="bc.newBusiness.description" />
+                    <input type="text" ng-model="bc.newBusiness.place.description" />
                 </div>
                 <br>
                 <div>
-                    <input type="radio" name="type" ng-model="bc.newBusiness.type" value="grocery">Bulk Grocery Store
-                    <input type="radio" name="type" ng-model="bc.newBusiness.type" value="other"> Other
+                    <input type="radio" name="type" ng-model="bc.newBusiness.place.type" value="grocery">Bulk Grocery Store
+                    <input type="radio" name="type" ng-model="bc.newBusiness.place.type" value="other"> Other
                 </div><br> Zero-Waste Offerings:
                 <br>
                 <br>
-                <div>
-                    <input type="checkbox" name="offering" ng-model="bc.bulk">Bulk groceries<br>
-                    <input type="checkbox" name="offering" ng-model="bc.pet">Pet products<br>
-                    <input type="checkbox" name="offering" ng-model="bc.taps">Taprooms/Fill Growlers<br>
-                    <input type="checkbox" name="offering" ng-model="bc.books">Books<br>
-                    <input type="checkbox" name="offering" ng-model="bc.program">Sharing program<br>
-                    <input type="checkbox" name="offering" ng-model="bc.compost">Uses compostable products<br>
+                <div ng-repeat="offering in bc.newBusiness.place.offerings">
+                    <input type="checkbox" name="offering" ng-model="offering.is_available">{{offering.name}}<br>
                 </div>
                 <br>
                 <input class="btn btn-default" type="submit" name="submit" value="Submit" />
@@ -91,7 +87,7 @@
                     <input type="text" ng-model="bc.businessToEdit.currentData.description"/>
                 </div>
                 <br>
-                <!-- bc: {{bc.businessToEdit}} -->
+                
                 <div>
                     <input type="radio" name="type" value="Bulk Grocery Store">Bulk Grocery Store
                     <input type="radio" name="type" value="Other"> Other
@@ -101,10 +97,7 @@
                 <div>
                     <input type="checkbox" name="offering" ng-model="bc.bulk">Bulk groceries<br>
                     <input type="checkbox" name="offering" ng-model="bc.pet">Pet products<br>
-                    <input type="checkbox" name="offering" ng-model="bc.taps">Taprooms/Fill Growlers<br>
-                    <input type="checkbox" name="offering" ng-model="bc.books">Books<br>
-                    <input type="checkbox" name="offering" ng-model="bc.program">Sharing program<br>
-                    <input type="checkbox" name="offering" ng-model="bc.compost">Uses compostable products<br>
+
                 </div>
                 <br>
                 <input class="btn btn-default" type="submit" name="submit" value="Submit" ng-click="bc.openUpdateForm()" />
@@ -137,3 +130,15 @@
  <!-- This was an attempt to use xeditable but I didn't like how it functioned. I had it under ng-show in the Business List Window: 
                  <span editable-text="business.description" e-label="">{{business.description || 'empty'}}</span>  
                 <button ng-if="uc.userObject.userName==business.user" ng-click="bc.updateBusiness(business)">Save</button>  -->
+
+
+
+
+
+
+
+<!-- Other category options
+                <input type="checkbox" name="offering" ng-model="bc.taps">Taprooms/Fill Growlers<br>
+                <input type="checkbox" name="offering" ng-model="bc.books">Books<br>
+                <input type="checkbox" name="offering" ng-model="bc.program">Sharing program<br>
+                <input type="checkbox" name="offering" ng-model="bc.compost">Uses compostable products<br> -->

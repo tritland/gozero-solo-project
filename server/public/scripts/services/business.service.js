@@ -16,6 +16,7 @@ self.getBusinesses = function () {
 
 //post request to add new business 
 self.addBusiness = function(newBusiness){
+    console.log('hit business post with this data ==>', newBusiness)
     $http.post('/business', newBusiness).then(function(response) {
         self.getBusinesses();
     });
