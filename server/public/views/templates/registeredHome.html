@@ -63,10 +63,10 @@
                     <input type="text" ng-model="bc.newBusiness.place.description" />
                 </div>
                 <br>
-                <!-- <div ng-repeat="type in bc.newBusiness.place.type"> -->
+                <div>
                      <input type="radio" name="type" ng-model="bc.newBusiness.place.type" value="grocery"> Grocery
                      <input type="radio" name="type" ng-model="bc.newBusiness.place.type" value="other"> Other 
-                <!-- </div> -->
+                </div>
                 <br> 
                 Zero-Waste Offerings:
                 <br>
@@ -91,14 +91,15 @@
                 <br>
                 
                 <div>
-                    <input type="radio" name="type" value="Bulk Grocery Store">Bulk Grocery Store
-                    <input type="radio" name="type" value="Other"> Other
+                    <input type="radio" name="type" ng-model="bc.businessToEdit.currentData.type" value="grocery">Grocery
+                    <input type="radio" name="type" ng-model="bc.businessToEdit.currentData.type" value="other">Other
+                    <!-- <input type="radio" name="type" value="Other"> Other -->
                 </div><br> Zero-Waste Offerings:
                 <br>
                 <br>
-                <div>
-                    <input type="checkbox" name="offering" ng-model="bc.bulk">Bulk groceries<br>
-                    <input type="checkbox" name="offering" ng-model="bc.pet">Pet products<br>
+                <div ng-repeat="offering in bc.businessToEdit.currentData.offerings">
+                    <input type="checkbox" name="offering" ng-model="offering.is_available">{{offering.name}}<br>
+                    <!-- <input type="checkbox" name="offering" ng-model="bc.pet">Pet products<br> -->
 
                 </div>
                 <br>

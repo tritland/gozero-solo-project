@@ -31,7 +31,23 @@ myApp.controller('BusinessController', ['BusinessService', 'NgMap', function (Bu
           is_available: false
         },
         {
-          name: 'Pet Products',
+          name: 'Beer/Wine/Spirits',
+          is_available: false
+        },
+        {
+          name: 'Clothes',
+          is_available: false
+        },
+        {
+          name: 'Restaurants/Cafes',
+          is_available: false
+        },
+        {
+          name: 'Home Goods',
+          is_available: false
+        },
+        {
+          name: 'Specialty Items',
           is_available: false
         }
       ]

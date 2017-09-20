@@ -116,7 +116,9 @@ router.put('/', function (req, res) {
             },
                 {
                     $set: {
-                        description: req.body.description
+                        description: req.body.description,
+                        type: req.body.type,
+                        offerings: req.body.offerings
                     }
                 }, function (err, data) {
                     if (err) {
@@ -127,7 +129,6 @@ router.put('/', function (req, res) {
                     };
                 });
         } else {
-            console.log("wtf");
             res.sendStatus(500);
         };
     };
