@@ -39,12 +39,12 @@ myApp.controller('BusinessController', ['BusinessService', 'NgMap', function (Bu
 
     vm.newBusiness.place.type = [
       {
-        name: 'Bulk Grocery',
+        name: 'Grocery',
         is_type: false
       },
       {
         name: 'Other',
-        is_type: false
+        is_type: true
       }
     ]
 
@@ -63,7 +63,7 @@ myApp.controller('BusinessController', ['BusinessService', 'NgMap', function (Bu
     var purple = '/assets/purple.png';
     var orange = '/assets/orange.png';
 
-    if (business.type === "grocery") {
+    if (business.type[0].name === 'Grocery') {
       return purple;
     } else {
       return orange;

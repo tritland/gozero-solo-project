@@ -9,7 +9,7 @@ self.getBusinesses = function () {
     $http.get('/business').then(function (response) {
         if (response.status == 200) {
             self.businessData.list = response.data;
-            //console.log('response from business get request ==> ', response.data);
+            console.log('response from business get request ==> ', response.data);
         };
     });
 };
