@@ -8,10 +8,10 @@ myApp.controller('BusinessController', ['BusinessService', 'NgMap', function (Bu
   vm.businessToEdit = BusinessService.businessToEdit
   vm.map = {};
   
-  vm.data = {
-    group1 : 'Grocery'
+  // vm.data = {
+  //   group1 : 'Grocery'
     
-  };
+  // };
 
 
   NgMap.getMap("map").then(function (map) {
@@ -25,6 +25,7 @@ myApp.controller('BusinessController', ['BusinessService', 'NgMap', function (Bu
 
   //not workin outside of the marker tag - would like for animation to work when clicking on associated biz in the list
   vm.toggleBounce = function() {
+    console.log('this is THIS -->', this);
     if (this.getAnimation() != null) {
       this.setAnimation(null);
     } else {
@@ -93,6 +94,7 @@ myApp.controller('BusinessController', ['BusinessService', 'NgMap', function (Bu
   // function to show/hide new Business input form on button click
   vm.openNewForm = function (business) {
     vm.newForm = !vm.newForm;
+    vm.newBusiness = { offerings: [] };
   };
 
   // function to show extra details on button click    
