@@ -1,12 +1,12 @@
 <header ng-include="'views/partials/registeredHeader.html'"></header>
-<div ng-controller="MaterialController as mc">
+<!-- <div ng-controller="MaterialController as mc"> -->
     <div class="container" ng-controller="BusinessController as bc">
 
         <!-- MAP AND MARKERS -->
         <ng-map default-style="false" id="map" center='current-position' zoom="12">
 
             <marker ng-repeat="business in bc.businessData.list" icon="{{bc.getIcon(business)}}" position="[ {{business.latitude}}, {{business.longitude}} ]"
-                on-click="bc.showDeets(business)"></marker>
+                on-click="bc.showDeets(business)" ></marker>
             <info-window id="infoWindow">
                 <div ng-non-bindable="">
                    {{bc.businessData.business.name}}<br> {{bc.businessData.business.address}}
@@ -20,8 +20,19 @@
 
         <!-- BUSINESS LIST WINDOW -->
         <div class="containter" id="bizList">
+            <div id="bizListHeader">
+            <div>
+                <!-- <label for="state">Search:</label> -->
+                Search: <input type="text" ng-model="searchBox"><br>
+            </div>
+            <div class="filters">
+                <input type="checkbox" ng-model='searchObject.bulkGrocery'>Bulk Groceries<br>
+                <input type="checkbox" ng-model='searchObject.clothes'>Clothes<br>
+                <input type="checkbox" ng-model='searchObject.monkeys'>Monkeys<br>
+            </div>
             <button class="md=primary md-raised" id="addBizButton" ng-click="bc.openNewForm()">Add Business</button>
-            <div class="listedBiz" ng-repeat="business in bc.businessData.list">
+        </div>
+            <div class="listedBiz" ng-repeat="business in bc.businessData.list | offeringsFilter:searchObject ">
                 <p> {{business.name}} <br> {{ business.address }} <br>
                     <a href="{{business.website}}">{{business.website}}</a> <br>
 
@@ -32,7 +43,7 @@
                         Description: {{business.description}}<br>
                         <br>
                         <br> Zero-Waste Offerings:<br>
-                        <span ng-repeat="offering in business.offerings" ng-if="offering.is_available==true">
+                        <span ng-repeat="offering in business.offerings" ng-if="offering.is_available==true" >
                              {{offering.name}}<br>   
                         </span>
                 </p>
@@ -46,26 +57,35 @@
 
         <!-- NEW BUSINESS FORM -->
         <div id="newForm" ng-show="bc.newForm">
+            <md-content layout-padding>
+                <div>
             <div class="lead alert alert-danger" role="alert" ng-if="lc.message != ''">{{bc.message}}</div>
             <form ng-submit="bc.addBusiness()">
-                <div id="autoFill">
-                    <label for="autoComplete">Enter a business: </label>
+                <md-input-container class="md-block" flex-gt-xs> 
+                    <!-- <label for="autoComplete">Find a business: </label> -->
                     <input places-auto-complete size=50 component-restrictions="{country:'us'}" ng-model="bc.newBusiness.place.autofilladdress" on-place-changed="bc.placeChanged()"
                     /><br/>
-                </div>
+                </md-input-container>
                 
-                <br>
-                <br> Name: {{bc.newBusiness.place.name}}<br><br> Address: {{bc.newBusiness.place.formatted_address}}<br><br> Website:
-                {{bc.newBusiness.place.website}}
-                <br><br>
-                <div>
-                    <label for="state">Description:</label>
+               <p> <label class="newBizLabels">Name:</label> {{bc.newBusiness.place.name}} </p> 
+         
+               <p> <label class="newBizLabels">Address:</label> {{bc.newBusiness.place.formatted_address}} </p>
+                
+               <p> <label class="newBizLabels">Website:</label>
+                <a href="{{bc.newBusiness.place.website}}">{{bc.newBusiness.place.website}}</a></p>
+               <br>
+                <md-input-container class="md-block" flex-gt-xs> 
+                    <label class="newBizLabels" for="state">Description:</label>
                     <input type="text" ng-model="bc.newBusiness.place.description" />
-                </div>
+                </md-input-container>
                 <br>
                 <div>
-                     <input type="radio" name="type" ng-model="bc.newBusiness.place.type" value="grocery"> Grocery
-                     <input type="radio" name="type" ng-model="bc.newBusiness.place.type" value="other"> Other 
+                    <md-radio-group ng-model="bc.data.group1">
+                     <md-radio-button class="md-primary" name="type" ng-model="bc.newBusiness.place.type" value="grocery"> Grocery </md-radio-button>
+                     <md-radio-button class="md-primary" name="type" ng-model="bc.newBusiness.place.type" value="other"> Other </md-radio-button>
+
+                     <!-- <input type="radio" name="type" ng-model="bc.newBusiness.place.type" value="other"> Other  -->
+                    </md-radio-group>
                 </div>
                 <br> 
                 Zero-Waste Offerings:
@@ -78,6 +98,8 @@
                 <input class="btn btn-default" type="submit" name="submit" value="Submit" />
                 <a href="#registeredHome" ng-click="bc.openNewForm()">Cancel</a>
             </form>
+        </div>
+        </md-content>
         </div>
 
 
@@ -109,7 +131,7 @@
         </div>
 
     </div>
-</div>
+<!-- </div> -->
 
 
 

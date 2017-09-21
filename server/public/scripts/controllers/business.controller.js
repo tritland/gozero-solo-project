@@ -6,65 +6,66 @@ myApp.controller('BusinessController', ['BusinessService', 'NgMap', function (Bu
   vm.businessData = BusinessService.businessData
   vm.message = '';
   vm.businessToEdit = BusinessService.businessToEdit
- 
-  
-
   vm.map = {};
+  
+  vm.data = {
+    group1 : 'Grocery'
+    
+  };
+
+
   NgMap.getMap("map").then(function (map) {
     vm.map = map;
   });
 
   vm.showDeets = function (e, business) {
     vm.businessData.business = business
-    vm.map.showInfoWindow('infoWindow', this);
+    vm.map.showInfoWindow('infoWindow', this);  
   };
 
+  //not workin outside of the marker tag - would like for animation to work when clicking on associated biz in the list
+  vm.toggleBounce = function() {
+    if (this.getAnimation() != null) {
+      this.setAnimation(null);
+    } else {
+      this.setAnimation(google.maps.Animation.BOUNCE);
+    }
+  };
 
   // maps autofill function
   vm.placeChanged = function () {
     vm.newBusiness.place = this.getPlace();
     vm.newBusiness.place.latitude = vm.newBusiness.place.geometry.location.lat();
     vm.newBusiness.place.longitude = vm.newBusiness.place.geometry.location.lng();
-    vm.newBusiness.place.offerings =  [
-        {
-          name: 'Bulk Groceries',
-          is_available: false
-        },
-        {
-          name: 'Beer/Wine/Spirits',
-          is_available: false
-        },
-        {
-          name: 'Clothes',
-          is_available: false
-        },
-        {
-          name: 'Restaurants/Cafes',
-          is_available: false
-        },
-        {
-          name: 'Home Goods',
-          is_available: false
-        },
-        {
-          name: 'Specialty Items',
-          is_available: false
-        }
-      ]
-    
-
     vm.newBusiness.place.type = 'other';
-
-
-
-
-    
-    // vm.place = this.getPlace();
-    // vm.newBusiness = vm.place;
-    // vm.newBusiness.offerings = [];
-    // vm.newBusiness.latitude = vm.place.geometry.location.lat();
-    // vm.newBusiness.longitude = vm.place.geometry.location.lng();
-  }
+    vm.newBusiness.place.offerings = [
+      {
+        name: 'Bulk Groceries',
+        is_available: false,
+        filter: 'bulkGrocery'
+      },
+      {
+        name: 'Beer/Wine/Spirits',
+        is_available: false
+      },
+      {
+        name: 'Clothes',
+        is_available: false
+      },
+      {
+        name: 'Restaurants/Cafes',
+        is_available: false
+      },
+      {
+        name: 'Home Goods',
+        is_available: false
+      },
+      {
+        name: 'Specialty Items',
+        is_available: false
+      }
+    ]
+  };
 
   vm.getIcon = function (business) {
     var purple = '/assets/purple.png';
@@ -84,58 +85,9 @@ myApp.controller('BusinessController', ['BusinessService', 'NgMap', function (Bu
   };
 
   vm.addBusiness = function () {
- 
-    // if (vm.newBusiness.name === '' || vm.newBusiness.address === '') {
-    //   vm.message = "Please complete all business name and address information.";
-    // } else {
-
-      // if (vm.bulk != undefined) {
-      //   var bulk = {
-      //     name: 'Bulk Groceries',
-      //     is_available: true
-      //   }
-      //   vm.newBusiness.offerings.push(bulk);
-      // } else {
-      //   var bulk = {
-      //     name: 'Bulk Groceries',
-      //     is_available: false
-      //   }
-      //   vm.newBusiness.offerings.push(bulk);
-      // }
-
-
-      // if (vm.pet != undefined) {
-      //   var pet = {
-      //     name: 'Pet products',
-      //     is_available: true
-      //   }
-      //   vm.newBusiness.offerings.push(pet);
-      // } else {
-      //   var pet = {
-      //     name: 'Pet products',
-      //     is_available: false
-      //   }
-      //   vm.newBusiness.offerings.push(pet);
-      // }
-
-
-      // if (vm.taps != undefined) {
-      //   vm.newBusiness.offerings.push('Taprooms/Fill Growlers');
-      // }
-      // if (vm.books != undefined) {
-      //   vm.newBusiness.offerings.push('Books');
-      // }
-      // if (vm.program != undefined) {
-      //   vm.newBusiness.offerings.push('Sharing program');
-      // }
-      // if (vm.compost != undefined) {
-      //   vm.newBusiness.offerings.push('Uses compostable products');
-      // }
-console.log('newBusiness being sent from controller ==>', vm.newBusiness)
-      BusinessService.addBusiness(vm.newBusiness);
-      vm.openNewForm();
-      vm.newBusiness = { offerings: [] };
-    // };
+    BusinessService.addBusiness(vm.newBusiness);
+    vm.openNewForm();
+    vm.newBusiness = { offerings: [] };
   };
 
   // function to show/hide new Business input form on button click
@@ -147,7 +99,6 @@ console.log('newBusiness being sent from controller ==>', vm.newBusiness)
   vm.showDetails = function (business) {
     business.details = !business.details;
     BusinessService.fillUpdateForm(business)
-    console.log('here is what is sent to service from controller when details is clicked -->', business)
   };
 
   // function to show/hide update form on button click
