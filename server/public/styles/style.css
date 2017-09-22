@@ -11,7 +11,7 @@ body, html {
 
 
 .instructions {
-  background-color: #2ac96e;
+  background-color: #00E676;
   color: white;
   padding: 15px;
   position: relative;
@@ -84,22 +84,50 @@ li a:hover {
   color: #eee;
 }
 
-#addBizButton {
-  margin-left: 25px;
-  margin-right: 25px;
+#addBusinessButton {
+  width: 100%;
+  background-color: #00E676; 
+  color: white;
+  font-weight: bold;
+    /* margin-left: 70px; */
+  /* margin-right: 25px;
   margin-top: 10px;
-  margin-bottom: 10px;
-  background-color: #2ac96e;
+  margin-bottom: 10px; */
+  /* background-color: #2ac96e; */
 }
 
+span {
+  font-weight: bold;
+}
+
+#deleteButtons {
+  background-color: #EF5350;
+  color: white;
+}
+
+#detailsButtons {
+  background-color: #7986CB;
+  color: white;
+}
+
+#updateButtons {
+  background-color:#00E676;
+  color: white;
+}
+
+#collapseDetailsButtons{
+  background-color: #607D8B;
+  color: white;
+
+}
 
 /* business list display*/
 #bizList {
   margin-left: 30px;
   margin-top: 50px;
   margin-bottom: 15px;
-  border-style: solid;
-  border-width: 1px;
+  /* border-style: solid;
+  border-width: 1px; */
   width: 30%;
   position: relative;
   z-index: 1;
@@ -108,15 +136,17 @@ li a:hover {
   float: left;
   overflow-y: auto;
   max-height: 500px;
+  border-radius: 25px;
   
 }
 
-#bizList p, span{
+/* #bizList p, span{
   padding-left: 25px;
-}
+} */
 
 .listedBiz{
   border-bottom-style: solid;
+  border-bottom-width: thin;
 }
 
 
@@ -124,22 +154,25 @@ li a:hover {
 #newForm {
   margin: auto;
   border-style: solid;
-  border-width: 1px;
+  border-width: thin;
   width: 30%;
   position: relative;
   z-index: 1;
   background-color: white;
-  
+  overflow-y: auto;
+  max-height: 500px;
 }
 
 #updateForm {
   margin: auto;
   border-style: solid;
-  border-width: 1px;
+  border-width: thin;
   width: 30%;
   position: relative;
   z-index: 1;
   background-color: white;
+  overflow-y: auto;
+  max-height: 500px;
   
 }
 
@@ -151,6 +184,7 @@ ng-map{
   top:0;
   /* left:0;    */
   z-index: 1;
+  overflow-y: auto;
 }
 
 

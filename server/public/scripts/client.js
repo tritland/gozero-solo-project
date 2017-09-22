@@ -1,7 +1,12 @@
 var myApp = angular.module('myApp', ['ngRoute', 'ngMaterial', 'ngMap']);
 
 /// Routes ///
-myApp.config(function($routeProvider, $locationProvider) {
+myApp.config(function($routeProvider, $locationProvider, $mdThemingProvider) {
+  $mdThemingProvider.theme('default')
+  .primaryPalette('green', {'default': 'A400'})
+  .accentPalette('blue-grey', {'default': '500'})
+  .warnPalette('red');
+
   $locationProvider.hashPrefix('');
   //console.log('myApp -- config')
   $routeProvider
