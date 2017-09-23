@@ -5,11 +5,6 @@ body, html {
   font-size: 14px;
 }
 
-
-
-
-
-
 .instructions {
   background-color: #00E676;
   color: white;
@@ -17,10 +12,36 @@ body, html {
   position: relative;
   z-index: 2;
   text-align: center;
-  height: 145px;
-  margin-bottom: 15px;
+  max-height: 75px;
+  /* margin-bottom: 15px; */
+  font-family: "Tahoma", "Geneva", sans-serif;
 }
 
+.instructions .container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.instructions .container #title{
+  font-size: 40px;
+  font-weight: bold;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  padding-top: 0px;
+  margin-bottom: 0px;
+}
+
+.instructions .container #subheads{
+  font-size: 20px;
+  margin-top: 0px;
+  padding-top: 0px;
+}
+
+#markers{
+  display: flex;
+  justify-content: space-around;
+}
 
 
 #entryForm {
@@ -30,8 +51,6 @@ body, html {
 #container {
   margin-top: 10px;
 }
-
-
 
 .message {
   padding: 10px 0;
@@ -85,15 +104,18 @@ li a:hover {
 }
 
 #addBusinessButton {
-  width: 100%;
+  width: 75%;
   background-color: #00E676; 
   color: white;
   font-weight: bold;
-    /* margin-left: 70px; */
-  /* margin-right: 25px;
-  margin-top: 10px;
-  margin-bottom: 10px; */
-  /* background-color: #2ac96e; */
+  display: flex;
+  margin: auto;
+  justify-content: center;
+}
+
+#markerImages {
+  width: 25px;
+  height: 25px;
 }
 
 span {
@@ -118,7 +140,11 @@ span {
 #collapseDetailsButtons{
   background-color: #607D8B;
   color: white;
+}
 
+#loginButton{
+  background-color:#00E676;
+  color: white;
 }
 
 /* business list display*/
@@ -126,9 +152,7 @@ span {
   margin-left: 30px;
   margin-top: 50px;
   margin-bottom: 15px;
-  /* border-style: solid;
-  border-width: 1px; */
-  width: 30%;
+  width: 400px;
   position: relative;
   z-index: 1;
   background-color: white;
@@ -137,12 +161,20 @@ span {
   overflow-y: auto;
   max-height: 500px;
   border-radius: 25px;
-  
+  font-family: "Tahoma", "Geneva", sans-serif; 
 }
 
-/* #bizList p, span{
-  padding-left: 25px;
-} */
+
+
+#loginWindow {
+  margin-left: 30px;
+  margin-top: 25px;
+  background-color: white;
+  opacity: 0.8;
+  float: left;
+  border-radius: 25px;
+  font-family: "Tahoma", "Geneva", sans-serif;
+}
 
 .listedBiz{
   border-bottom-style: solid;
@@ -176,18 +208,29 @@ span {
   
 }
 
-/* working with the google maps display */
-ng-map{ 
+.loginContainer{
+  background-image: url('https://www.greenpeace.org.uk/wp-content/uploads/2017/05/Bottle-background.jpg');
+  background-size: cover;
   width:100%; 
   height:100%;
   position: absolute;
+}
+
+/* working with the google maps display */
+ng-map{ 
+  width:100%; 
+  height:90%;
+  padding-top: 100px;
+  position: absolute;
   top:0;
-  /* left:0;    */
   z-index: 1;
   overflow-y: auto;
 }
 
-
+#loginInputs #input {
+  width: 100%;
+  clear: both;
+}
 
 
 #welcome{

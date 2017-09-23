@@ -1,12 +1,69 @@
 <header ng-include="'/views/partials/header.html'"></header>
 
+<div class="container" ng-controller="BusinessController as bc">
 
-<!-- <div ng-controller="MaterialController as mc" > -->
+<!-- MAP AND MARKERS -->
+<ng-map default-style="false" id="map" center='current-position' zoom="12">
     
-    <div class="container" ng-controller="BusinessController as bc" >
+            <marker ng-repeat="business in bc.businessData.list" icon="{{bc.getIcon(business)}}" position="[ {{business.latitude}}, {{business.longitude}} ]"
+                on-click="bc.showDeets(business)"></marker>
+            <info-window id="infoWindow">
+                <div ng-non-bindable="">
+                    <span>{{bc.businessData.business.name}}</span><br> {{bc.businessData.business.address}}
+                    <br>
+                    <a href="{{bc.businessData.business.website}}">{{bc.businessData.business.website}}</a><br>
+                </div>
+            </info-window>
+        </ng-map>
+    
+        <!-- BUSINESS LIST WINDOW -->
+        <div class="containter" id="bizList">
+            <md-content layout-padding>
+                <div id="markers">
+                    <span>Grocery:<img src="/assets/orange.png"></span>
+                    <span>Other:<img src="/assets/purple.png"></span>
+                </div>
+                <div id="bizListHeader">
+                    <div>
+                        <!-- <label for="state">Search:</label> -->
+                        <!-- Search: <input type="text" ng-model="searchBox"><br> -->
+                    </div>
+                    <!-- <div class="filters">
+                                    <input type="checkbox" ng-model='searchObject.bulkGrocery'>Bulk Groceries<br>
+                                    <input type="checkbox" ng-model='searchObject.clothes'>Clothes<br>
+                                    <input type="checkbox" ng-model='searchObject.monkeys'>Monkeys<br>
+                                </div> -->
+                    <md-button class="md-raised" id="addBusinessButton" ng-href="#/login">Add New Business</md-button>
+                </div>
+    
+                <div class="listedBiz" ng-repeat="business in bc.businessData.list | offeringsFilter:searchObject ">
+                    <p> <span id="bizName">{{business.name}}</span> <br> {{ business.address }} <br>
+                        <a href="{{business.website}}">{{business.website}}</a> <br><br> 
+                    </p>        
+                        <md-button class="md-raised" id="detailsButtons" ng-click="bc.showDetails(business)">Details</md-button>
+                        <!-- <md-button class="md-raised" id="deleteButtons" ng-if="uc.userObject.userName==business.user" ng-click="bc.deleteBusiness(business._id)">Delete</md-button> -->
+                        <br>
+                        <br>
+                        <!-- EXPANDABLE DETAILS SECTION -->
+                        <div ng-show="business.details">
+                            <span class="label">Description:</span> {{business.description}}
+                            <br>
+                            <br> <span class="label">Zero-Waste Offerings:</span><br>
+                            <div ng-repeat="offering in business.offerings" ng-if="offering.is_available==true">
+                                 <li>{{offering.name}}</li><br>   
+                            </div>
+                    
+                            <md-button class="md-raised" id="collapseDetailsButtons" ng-click="bc.showDetails(business)">Collapse Details</md-button>
+                            <!-- <md-button class="md-raised" id="updateButtons" ng-if="uc.userObject.userName==business.user" ng-click="bc.openUpdateForm(business)">Update</md-button><br> -->
+                        </div>
+                </div>
+            </md-content>
+        </div>
+      </div>
+    <!-- <div class="container" ng-controller="BusinessController as bc" > -->
     
         <!-- map and markers -->
-            <ng-map id="map" center='current-position'
+            <!-- <ng-map id="map" center='current-position'
             geo-fallback-center="[40.74, -74.18]" zoom="12"> 
                    
                 <marker ng-repeat="location in bc.businessData.list" position="[ {{location.latitude}}, {{location.longitude}} ]"></marker> 
@@ -14,10 +71,10 @@
             </ng-map>
 
 
-<div class="containter" id="bizList" >
+<div class="containter" id="bizList" > -->
     
 
-    <md-button class="md=primary md-raised" id="addBizButton" ng-href="#/login">Add New Business</md-button>
+    <!-- <md-button class="md=primary md-raised" id="addBizButton" ng-href="#/login">Add New Business</md-button>
     <div ng-repeat="business in bc.businessData.list">
       <p> {{business.name}} <br> 
         {{ business.address }} <br>
@@ -37,5 +94,4 @@
       </div>
   </div>
 
-</div>
-<!-- </div> -->
+</div> -->

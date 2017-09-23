@@ -46,19 +46,19 @@ myApp.controller('BusinessController', ['BusinessService', 'NgMap', function (Bu
         filter: 'bulkGrocery'
       },
       {
-        name: 'Beer/Wine/Spirits',
+        name: 'Beer Growler Refill',
         is_available: false
       },
       {
-        name: 'Clothes',
+        name: 'Used Clothing and Goods',
         is_available: false
       },
       {
-        name: 'Restaurants/Cafes',
+        name: 'Eco-Friendly Restaurants/Cafes',
         is_available: false
       },
       {
-        name: 'Home Goods',
+        name: 'Sharing Program',
         is_available: false
       },
       {

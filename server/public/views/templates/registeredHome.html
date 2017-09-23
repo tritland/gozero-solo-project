@@ -5,6 +5,7 @@
 <div class="container" ng-controller="BusinessController as bc">
 
     <!-- MAP AND MARKERS -->
+    <div id="mapContainer">
     <ng-map default-style="false" id="map" center='current-position' zoom="12">
 
         <marker ng-repeat="business in bc.businessData.list" icon="{{bc.getIcon(business)}}" position="[ {{business.latitude}}, {{business.longitude}} ]"
@@ -17,16 +18,24 @@
             </div>
         </info-window>
     </ng-map>
-
+</div>
 
 
     <!-- BUSINESS LIST WINDOW -->
     <div class="containter" id="bizList">
         <md-content layout-padding>
+            
+            <!-- <div id="searchAndMarks"> -->
+            <!-- <input type="text" ng-model="searchBox" placeholder="Search"> -->
+            <div id="markers">
+                <span id="searchBox"> <input   type="text" ng-model="searchBox" placeholder="Search"></span>
+                <span>Grocery:<img id="markerImages" src="/assets/orange.png"></span>
+                <span>Other:<img id="markerImages" src="/assets/purple.png"></span>
+            </div>
+        <!-- </div>  -->
             <div id="bizListHeader">
                 <div>
-                    <!-- <label for="state">Search:</label> -->
-                    <!-- Search: <input type="text" ng-model="searchBox"><br> -->
+                    
                 </div>
                 <!-- <div class="filters">
                                 <input type="checkbox" ng-model='searchObject.bulkGrocery'>Bulk Groceries<br>
@@ -36,9 +45,9 @@
                 <md-button class="md-raised" id="addBusinessButton" ng-click="bc.openNewForm()">Add New Business</md-button>
             </div>
 
-            <div class="listedBiz" ng-repeat="business in bc.businessData.list | offeringsFilter:searchObject ">
+            <div class="listedBiz" ng-repeat="business in bc.businessData.list | filter:searchBox">
                 <p> <span id="bizName">{{business.name}}</span> <br> {{ business.address }} <br>
-                    <a href="{{business.website}}">{{business.website}}</a> <br><br> 
+                    <a ng-href="{{business.website}}">{{business.website}}</a> <br><br> 
                 </p>        
                     <md-button class="md-raised" id="detailsButtons" ng-click="bc.showDetails(business)">Details</md-button>
                     <md-button class="md-raised" id="deleteButtons" ng-if="uc.userObject.userName==business.user" ng-click="bc.deleteBusiness(business._id)">Delete</md-button>
@@ -52,14 +61,13 @@
                         <div ng-repeat="offering in business.offerings" ng-if="offering.is_available==true">
                              <li>{{offering.name}}</li><br>   
                         </div>
-                
+                <br>
                         <md-button class="md-raised" id="collapseDetailsButtons" ng-click="bc.showDetails(business)">Collapse Details</md-button>
                         <md-button class="md-raised" id="updateButtons" ng-if="uc.userObject.userName==business.user" ng-click="bc.openUpdateForm(business)">Update</md-button><br>
                     </div>
             </div>
         </md-content>
     </div>
-
 
     <!-- NEW BUSINESS FORM -->
 
