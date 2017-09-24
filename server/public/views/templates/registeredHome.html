@@ -35,7 +35,7 @@
                                 <input type="checkbox" ng-model='searchObject.clothes'>Clothes<br>
                                 <input type="checkbox" ng-model='searchObject.monkeys'>Monkeys<br>
                             </div> -->
-                <md-button class="md-raised" id="addBusinessButton" ng-click="bc.openNewForm()">Add New Business</md-button>
+                <md-button class="md-raised" id="addBusinessButton" ng-click="bc.openNewForm()">Add New Business</md-button><br>
             </div>
             <div class="listedBiz" ng-repeat="business in bc.businessData.list | filter:searchBox">
                 <p> <span id="bizName">{{business.name}}</span> <br> {{ business.address }} <br>
