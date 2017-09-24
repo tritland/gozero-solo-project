@@ -1,4 +1,4 @@
-myApp.controller('BusinessController', ['BusinessService', 'NgMap', function (BusinessService, NgMap) { // BusinessController talks to UserService
+myApp.controller('BusinessController', ['BusinessService', 'NgMap', '$mdDialog', '$mdToast', function (BusinessService, NgMap, $mdDialog, $mdToast) { // BusinessController talks to UserService
   // console.log('BusinessController created');
   var vm = this;
   vm.newForm = false;
@@ -7,12 +7,13 @@ myApp.controller('BusinessController', ['BusinessService', 'NgMap', function (Bu
   vm.message = '';
   vm.businessToEdit = BusinessService.businessToEdit
   vm.map = {};
-  
-  // vm.data = {
-  //   group1 : 'Grocery'
-    
-  // };
 
+  vm.showToast = function (ev) {
+    $mdToast.show(
+        $mdToast.simple()
+        .textContent('Thanks for adding to our resource guide!')
+    );
+}
 
   NgMap.getMap("map").then(function (map) {
     vm.map = map;

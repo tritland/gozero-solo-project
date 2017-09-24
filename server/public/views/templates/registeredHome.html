@@ -108,7 +108,7 @@
                         <md-checkbox class="md-primary" name="offering" ng-model="offering.is_available">{{offering.name}}<br>
                     </div>
                     <br>
-                    <md-button id="submitButtons" type="submit" name="submit" value="Submit">Submit</md-button>
+                    <md-button id="submitButtons" type="submit" name="submit" ng-click="bc.showToast($event)" value="Submit">Submit</md-button>
                     <a href="#registeredHome" ng-click="bc.openNewForm()">Cancel</a>
                 </form>
             </div>
