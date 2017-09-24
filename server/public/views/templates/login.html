@@ -6,19 +6,19 @@
             <h2 class="lead alert alert-danger" role="alert" ng-if="lc.message != ''">{{lc.message}}</h2>
             <div id="loginInputs">
                 <form ng-submit="lc.login()">
-                <div>
-                    <span><label for="username">Username:</label></span>
-                    <input id="input" type="text" ng-model="lc.user.username" />
-                </div><br>
-                <div>
-                    <span><label for="password">Password:</label></span>
-                    <input id="input" type="password" ng-model="lc.user.password" />
-                </div><br>
-                <div>
-                    <md-button class="md-raised" id="loginButton" type="submit" name="submit" value="Log In">Log In</md-button> </md-button>
-                    <a href="#register">Register</a>
-                </div>
-            </form>
+                    <div>
+                        <span><label for="username">Username:</label></span>
+                        <input id="input" type="text" ng-model="lc.user.username" />
+                    </div><br>
+                    <div>
+                        <span><label for="password">Password:</label></span>
+                        <input id="input" type="password" ng-model="lc.user.password" />
+                    </div><br>
+                    <div>
+                        <md-button class="md-raised" id="loginButton" type="submit" name="submit" value="Log In">Log In</md-button>
+                        <a href="#register">Register</a>
+                    </div>
+                </form>
             </div>
         </md-content>
     </div>

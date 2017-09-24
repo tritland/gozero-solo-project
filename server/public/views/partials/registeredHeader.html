@@ -1,14 +1,19 @@
 <div class="instructions">
-    <div id="heading" class="container">
-         
-        <div id="subheads"><p id="welcome" class="lead">Welcome, {{uc.userObject.userName}}!</p></div>
-        <div id="center">
-            <p id="title">goZero</p>
-            <p id="subheads">A Zero-Waste Resource Guide<p>
-              </div>
-        <div id="subheads"><p id="logout"><a href="#/login" ng-click="uc.userService.logout()">Log Out</a> </p></div>
-    
-</div>
+  <div id="heading" class="container">
+
+    <div id="subheads">
+      <p id="welcome" class="lead">Welcome, {{uc.userObject.userName}}!</p>
+    </div>
+    <div id="center">
+      <p id="title">goZero</p>
+      <p id="subheads">A Zero-Waste Resource Guide
+        <p>
+    </div>
+    <div id="subheads">
+      <p id="logout"><a  id="headerLinks" href="#/login" ng-click="uc.userService.logout()">Log Out</a> </p>
+    </div>
+
+  </div>
 </div>
 
 

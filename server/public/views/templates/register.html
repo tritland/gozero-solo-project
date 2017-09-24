@@ -1,18 +1,23 @@
 <header ng-include="'/views/partials/header.html'"></header>
-<div class="container">
-  <h1 class="lead">Register User</h1>
-  <h1 class="lead alert alert-danger" role="alert" ng-if="lc.message != ''">{{lc.message}}</h2>
-  <form ng-submit="lc.registerUser()">
-    <div>
-        <label for="username">Username:</label>
-        <input type="text" ng-model="lc.user.username" />
-    </div>
-    <div>
-        <label for="password">Password:</label>
-        <input type="password" ng-model="lc.user.password" />
-    </div>
-    <input class="btn btn-default" type="submit" name="submit" value="Register" />
-    <a href="#login">Cancel</a>
-  </form>
-
+<div class="loginContainer">
+  <div>
+    <md-content id="loginWindow" layout-padding>
+      <h1 class="lead">Register User</h1>
+      <h1 class="lead alert alert-danger" role="alert" ng-if="lc.message != ''">{{lc.message}}</h2>
+        <div id="loginInputs">
+          <form ng-submit="lc.registerUser()">
+            <div>
+              <span> <label for="username">Username:</label></span>
+              <input id="input" type="text" ng-model="lc.user.username" />
+            </div><br>
+            <div>
+              <span><label for="password">Password:</label></span>
+              <input id="input" type="password" ng-model="lc.user.password" />
+            </div><br>
+            <md-button class="md-raised" id="loginButton" type="submit" name="submit" value="Register">Register</md-button>
+            <a href="#login">Cancel</a>
+          </form>
+        </div>
+    </md-content>
+  </div>
 </div>

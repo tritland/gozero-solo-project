@@ -32,10 +32,23 @@ body, html {
   margin-bottom: 0px;
 }
 
+#headerLinks{
+  color: white;
+}
+
+#headerLinks:hover {
+color: blue; 
+}
+
+
 .instructions .container #subheads{
-  font-size: 20px;
+  font-size: 18px;
   margin-top: 0px;
   padding-top: 0px;
+}
+
+#searchBox{
+  margin-top: 5px;
 }
 
 #markers{
@@ -122,6 +135,10 @@ span {
   font-weight: bold;
 }
 
+.md-button {
+  min-height: 1%;
+}
+
 #deleteButtons {
   background-color: #EF5350;
   color: white;
@@ -138,11 +155,16 @@ span {
 }
 
 #collapseDetailsButtons{
-  background-color: #607D8B;
+  background-color: #7986CB;
   color: white;
 }
 
 #loginButton{
+  background-color:#00E676;
+  color: white;
+}
+
+#submitButtons{
   background-color:#00E676;
   color: white;
 }
@@ -159,9 +181,14 @@ span {
   opacity: 0.9;
   float: left;
   overflow-y: auto;
-  max-height: 500px;
+  max-height: 600px;
   border-radius: 25px;
   font-family: "Tahoma", "Geneva", sans-serif; 
+}
+
+#bizListHeader{
+  border-bottom-style: solid;
+  border-bottom-width: thin;
 }
 
 
@@ -185,27 +212,28 @@ span {
 /* input form display */
 #newForm {
   margin: auto;
-  border-style: solid;
-  border-width: thin;
-  width: 30%;
+  border-radius: 25px;
+  padding-top: 15px;
+  width: 400px;
   position: relative;
   z-index: 1;
   background-color: white;
   overflow-y: auto;
-  max-height: 500px;
+  max-height: 650px;
+  opacity: 0.9;
 }
 
 #updateForm {
   margin: auto;
-  border-style: solid;
-  border-width: thin;
-  width: 30%;
+  border-radius: 25px;
+  padding-top: 15px;
+  width: 400px;
   position: relative;
   z-index: 1;
   background-color: white;
   overflow-y: auto;
-  max-height: 500px;
-  
+  max-height: 650px;
+  opacity: 0.9;
 }
 
 .loginContainer{

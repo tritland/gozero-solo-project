@@ -6,132 +6,124 @@
 
     <!-- MAP AND MARKERS -->
     <div id="mapContainer">
-    <ng-map default-style="false" id="map" center='current-position' zoom="12">
-
-        <marker ng-repeat="business in bc.businessData.list" icon="{{bc.getIcon(business)}}" position="[ {{business.latitude}}, {{business.longitude}} ]"
-            on-click="bc.showDeets(business)"></marker>
-        <info-window id="infoWindow">
-            <div ng-non-bindable="">
-                <span>{{bc.businessData.business.name}}</span><br> {{bc.businessData.business.address}}
-                <br>
-                <a href="{{bc.businessData.business.website}}">{{bc.businessData.business.website}}</a><br>
-            </div>
-        </info-window>
-    </ng-map>
-</div>
-
+        <ng-map default-style="false" id="map" center='current-position' zoom="12">
+            <marker ng-repeat="business in bc.businessData.list" icon="{{bc.getIcon(business)}}" position="[ {{business.latitude}}, {{business.longitude}} ]"
+                on-click="bc.showDeets(business)"></marker>
+            <info-window id="infoWindow">
+                <div ng-non-bindable="">
+                    <span>{{bc.businessData.business.name}}</span><br> {{bc.businessData.business.address}}
+                    <br>
+                    <a href="{{bc.businessData.business.website}}">{{bc.businessData.business.website}}</a><br>
+                </div>
+            </info-window>
+        </ng-map>
+    </div>
 
     <!-- BUSINESS LIST WINDOW -->
     <div class="containter" id="bizList">
         <md-content layout-padding>
-            
-            <!-- <div id="searchAndMarks"> -->
-            <!-- <input type="text" ng-model="searchBox" placeholder="Search"> -->
             <div id="markers">
                 <span id="searchBox"> <input   type="text" ng-model="searchBox" placeholder="Search"></span>
                 <span>Grocery:<img id="markerImages" src="/assets/orange.png"></span>
                 <span>Other:<img id="markerImages" src="/assets/purple.png"></span>
             </div>
-        <!-- </div>  -->
             <div id="bizListHeader">
                 <div>
-                    
                 </div>
-                <!-- <div class="filters">
+                <!--    Attempted to add search filters: <div class="filters">
                                 <input type="checkbox" ng-model='searchObject.bulkGrocery'>Bulk Groceries<br>
                                 <input type="checkbox" ng-model='searchObject.clothes'>Clothes<br>
                                 <input type="checkbox" ng-model='searchObject.monkeys'>Monkeys<br>
                             </div> -->
                 <md-button class="md-raised" id="addBusinessButton" ng-click="bc.openNewForm()">Add New Business</md-button>
             </div>
-
             <div class="listedBiz" ng-repeat="business in bc.businessData.list | filter:searchBox">
                 <p> <span id="bizName">{{business.name}}</span> <br> {{ business.address }} <br>
-                    <a ng-href="{{business.website}}">{{business.website}}</a> <br><br> 
-                </p>        
-                    <md-button class="md-raised" id="detailsButtons" ng-click="bc.showDetails(business)">Details</md-button>
-                    <md-button class="md-raised" id="deleteButtons" ng-if="uc.userObject.userName==business.user" ng-click="bc.deleteBusiness(business._id)">Delete</md-button>
-                    <br>
-                    <br>
-                    <!-- EXPANDABLE DETAILS SECTION -->
-                    <div ng-show="business.details">
-                        <span class="label">Description:</span> {{business.description}}
-                        <br>
-                        <br> <span class="label">Zero-Waste Offerings:</span><br>
-                        <div ng-repeat="offering in business.offerings" ng-if="offering.is_available==true">
-                             <li>{{offering.name}}</li><br>   
-                        </div>
+                    <a ng-href="{{business.website}}">{{business.website}}</a> <br><br>
+                </p>
+                <md-button class="md-raised" id="detailsButtons" ng-click="bc.showDetails(business)">Details</md-button>
+                <md-button class="md-raised" id="deleteButtons" ng-if="uc.userObject.userName==business.user" ng-click="bc.deleteBusiness(business._id)">Delete</md-button>
                 <br>
-                        <md-button class="md-raised" id="collapseDetailsButtons" ng-click="bc.showDetails(business)">Collapse Details</md-button>
-                        <md-button class="md-raised" id="updateButtons" ng-if="uc.userObject.userName==business.user" ng-click="bc.openUpdateForm(business)">Update</md-button><br>
+                <br>
+                <!-- EXPANDABLE DETAILS SECTION -->
+                <div ng-show="business.details">
+                    <span class="label">Description:</span> {{business.description}}
+                    <br>
+                    <br> <span class="label">Zero-Waste Offerings:</span><br>
+                    <div ng-repeat="offering in business.offerings" ng-if="offering.is_available==true">
+                        <li>{{offering.name}}</li><br>
                     </div>
+                    <br>
+                    <md-button class="md-raised" id="collapseDetailsButtons" ng-click="bc.showDetails(business)">Collapse Details</md-button>
+                    <md-button class="md-raised" id="updateButtons" ng-if="uc.userObject.userName==business.user" ng-click="bc.openUpdateForm(business)">Update</md-button><br>
+                </div>
             </div>
         </md-content>
     </div>
 
     <!-- NEW BUSINESS FORM -->
-
-    <md-content id="newForm" ng-show="bc.newForm" layout-padding>
-        <md-toolbar md-toolbar layout="row" layout-align="center center" class="md-accent">
-            <div>
-                <h4 class="md-flex">Add A New Business!</h4>
-            </div>
-        </md-toolbar>
-        <div>
-            <div class="lead alert alert-danger" role="alert" ng-if="lc.message != ''">{{bc.message}}</div>
-            <form ng-submit="bc.addBusiness()">
-                <md-input-container class="md-block" flex-gt-xs>
-                    <!-- <label for="autoComplete">Find a business: </label> -->
-                    <input places-auto-complete size=50 component-restrictions="{country:'us'}" ng-model="bc.newBusiness.place.autofilladdress"
-                        on-place-changed="bc.placeChanged()" /><br/>
-                </md-input-container>
-
-                <p> <span id="labels">Name:</span> {{bc.newBusiness.place.name}} </p>
-
-                <p> <span id="labels">Address:</span> {{bc.newBusiness.place.formatted_address}} </p>
-
-                <p> <span id="labels">Website:</span>
-                    <a href="{{bc.newBusiness.place.website}}">{{bc.newBusiness.place.website}}</a></p>
-                <br>
-                <md-input-container class="md-block" flex-gt-xs>
-                    <span id="labels" for="state">Description:</span>
-                    <input type="text" ng-model="bc.newBusiness.place.description" />
-                </md-input-container>
-                <br>
+    <br>
+    <div id="newForm" ng-show="bc.newForm">
+        <md-content layout-padding>
+            <md-toolbar md-toolbar layout="row" layout-align="center center" class="md-accent">
                 <div>
-                    <span id="labels">Type of Business:</span>
-                    <md-radio-group ng-model="bc.newBusiness.place.type">
-                        <br> <br>
-                        <md-radio-button class="md-primary" name="type" value="grocery"> Grocery </md-radio-button>
-                        <md-radio-button class="md-primary" name="type" value="other"> Other </md-radio-button>
-                    </md-radio-group>
+                    <h4 class="md-flex">Add A New Business!</h4>
                 </div>
-                <br>
-                <br>
-                <span id="labels">Zero-Waste Offerings:</span>
-                <br>
-                <br>
-                <div ng-repeat="offering in bc.newBusiness.place.offerings">
-                    <md-checkbox class="md-primary" name="offering" ng-model="offering.is_available">{{offering.name}}<br>
-                </div>
-                <br>
-                <md-button id="detailsButtons" type="submit" name="submit" value="Submit">Submit</md-button> 
-                <a href="#registeredHome" ng-click="bc.openNewForm()">Cancel</a>
-            </form>
-        </div>
-    </md-content>
+            </md-toolbar>
+            <div>
+                <div class="lead alert alert-danger" role="alert" ng-if="lc.message != ''">{{bc.message}}</div>
+                <form ng-submit="bc.addBusiness()">
+                    <md-input-container class="md-block" flex-gt-xs>
+                        <!-- <label for="autoComplete">Find a business: </label> -->
+                        <input places-auto-complete size=50 component-restrictions="{country:'us'}" ng-model="bc.newBusiness.place.autofilladdress"
+                            on-place-changed="bc.placeChanged()" /><br/>
+                    </md-input-container>
 
+                    <p> <span id="labels">Name:</span> {{bc.newBusiness.place.name}} </p>
 
+                    <p> <span id="labels">Address:</span> {{bc.newBusiness.place.formatted_address}} </p>
+
+                    <p> <span id="labels">Website:</span>
+                        <a href="{{bc.newBusiness.place.website}}">{{bc.newBusiness.place.website}}</a></p>
+                    <br>
+                    <md-input-container class="md-block" flex-gt-xs>
+                        <span id="labels" for="state">Description:</span>
+                        <input type="text" ng-model="bc.newBusiness.place.description" />
+                    </md-input-container>
+                    <br>
+                    <div>
+                        <span id="labels">Type of Business:</span>
+                        <md-radio-group ng-model="bc.newBusiness.place.type">
+                            <br> <br>
+                            <md-radio-button class="md-primary" name="type" value="grocery"> Grocery </md-radio-button>
+                            <md-radio-button class="md-primary" name="type" value="other"> Other </md-radio-button>
+                        </md-radio-group>
+                    </div>
+                    <br>
+                    <br>
+                    <span id="labels">Zero-Waste Offerings:</span>
+                    <br>
+                    <br>
+                    <div ng-repeat="offering in bc.newBusiness.place.offerings">
+                        <md-checkbox class="md-primary" name="offering" ng-model="offering.is_available">{{offering.name}}<br>
+                    </div>
+                    <br>
+                    <md-button id="submitButtons" type="submit" name="submit" value="Submit">Submit</md-button>
+                    <a href="#registeredHome" ng-click="bc.openNewForm()">Cancel</a>
+                </form>
+            </div>
+        </md-content>
+    </div>
 
     <!-- UPDATE BUSINESS FORM -->
     <md-content id="updateForm" ng-show="bc.updateForm" layout-padding>
-            <md-toolbar md-toolbar layout="row" layout-align="center center" class="md-accent">
-                    <div>
-                        <h4 class="md-flex">Edit Business</h4>
-                    </div>
-                </md-toolbar>
+        <md-toolbar md-toolbar layout="row" layout-align="center center" class="md-accent">
+            <div>
+                <h4 class="md-flex">Edit Business</h4>
+            </div>
+        </md-toolbar>
         <form ng-submit="bc.updateBusiness(bc.businessToEdit.currentData)">
-                <md-input-container class="md-block" flex-gt-xs>
+            <md-input-container class="md-block" flex-gt-xs>
                 <span for="state">Description:</span>
                 <input type="text" ng-model="bc.businessToEdit.currentData.description" />
             </md-input-container>
@@ -139,62 +131,21 @@
             <div>
                 <span id="lables">Type of Business:</span><br><br>
                 <md-radio-group ng-model="bc.businessToEdit.currentData.type">
-                
-                
-                        <md-radio-button class="md-primary" name="type" value="grocery"> Grocery </md-radio-button>
-                        <md-radio-button class="md-primary" name="type" value="other"> Other </md-radio-button>
-                <!-- <input type="radio" name="type" value="Other"> Other -->
-            </md-radio-group>
-
+                    <md-radio-button class="md-primary" name="type" value="grocery"> Grocery </md-radio-button>
+                    <md-radio-button class="md-primary" name="type" value="other"> Other </md-radio-button>
+                    <!-- <input type="radio" name="type" value="Other"> Other -->
+                </md-radio-group>
             </div>
             <br> <span id="labels">Zero-Waste Offerings:</span>
             <br>
             <br>
             <div ng-repeat="offering in bc.businessToEdit.currentData.offerings">
-                    <md-checkbox class="md-primary" name="offering" ng-model="offering.is_available">{{offering.name}}<br>
-               
-
+                <md-checkbox class="md-primary" name="offering" ng-model="offering.is_available">{{offering.name}}<br>
             </div>
             <br>
-            <md-button id="detailsButtons"  type="submit" name="submit" value="Submit" ng-click="bc.openUpdateForm()">Submit</md-button>
+            <md-button id="submitButtons" type="submit" name="submit" value="Submit" ng-click="bc.openUpdateForm()">Submit</md-button>
             <a href="#registeredHome" ng-click="bc.openUpdateForm()">Cancel</a>
         </form>
     </md-content>
 
 </div>
-<!-- </div> -->
-
-
-
-
-<!-- these were inputs that I originally had for the Add New Business form - changed to just display data 
-                <div>
-                    <label for="name">Name:</label>
-                    <input type="text" ng-model="bc.newBusiness.name" />
-                </div><br>
-                <div>
-                    <label for="street">Address:</label>
-                    <input type="text" ng-model="bc.newBusiness.formatted_address" />
-                </div><br>
-
-                <div>
-                    <label for="website">Website:</label>
-                    <input type="text" ng-model="bc.newBusiness.website" />
-                </div><br> -->
-
-
-<!-- This was an attempt to use xeditable but I didn't like how it functioned. I had it under ng-show in the Business List Window: 
-                 <span editable-text="business.description" e-label="">{{business.description || 'empty'}}</span>  
-                <button ng-if="uc.userObject.userName==business.user" ng-click="bc.updateBusiness(business)">Save</button>  -->
-
-
-
-
-
-
-
-<!-- Other category options
-                <input type="checkbox" name="offering" ng-model="bc.taps">Taprooms/Fill Growlers<br>
-                <input type="checkbox" name="offering" ng-model="bc.books">Books<br>
-                <input type="checkbox" name="offering" ng-model="bc.program">Sharing program<br>
-                <input type="checkbox" name="offering" ng-model="bc.compost">Uses compostable products<br> -->

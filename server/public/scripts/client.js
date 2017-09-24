@@ -4,7 +4,7 @@ var myApp = angular.module('myApp', ['ngRoute', 'ngMaterial', 'ngMap']);
 myApp.config(function($routeProvider, $locationProvider, $mdThemingProvider) {
   $mdThemingProvider.theme('default')
   .primaryPalette('green', {'default': 'A400'})
-  .accentPalette('blue-grey', {'default': '500'})
+  .accentPalette('indigo', {'default': '300'})
   .warnPalette('red');
 
   $locationProvider.hashPrefix('');

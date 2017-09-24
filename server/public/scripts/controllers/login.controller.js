@@ -10,7 +10,7 @@ myApp.controller('LoginController', function($http, $location, UserService) {
     vm.login = function() {
       console.log('LoginController -- login');
       if(vm.user.username === '' || vm.user.password === '') {
-        vm.message = "Enter your username and password!";
+        vm.message = "Please enter your username and password.";
       } else {
         console.log('LoginController -- login -- sending to server...', vm.user);
         $http.post('/', vm.user).then(function(response) {
@@ -20,11 +20,11 @@ myApp.controller('LoginController', function($http, $location, UserService) {
             $location.path('/registeredHome'); // http://localhost:5000/#/registerdHome
           } else {
             console.log('LoginController -- login -- failure: ', response);
-            vm.message = "Wrong!!";
+            vm.message = "Username or Password not recognized. Please try again.";
           }
         }).catch(function(response){
           console.log('LoginController -- registerUser -- failure: ', response);
-          vm.message = "Wrong!!";
+          vm.message = "Username or Password not recognized. Please try again.";
         });
       }
     };
