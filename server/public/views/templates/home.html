@@ -10,7 +10,7 @@
             <div ng-non-bindable="">
                 <span>{{bc.businessData.business.name}}</span><br> {{bc.businessData.business.address}}
                 <br>
-                <a href="{{bc.businessData.business.website}}">{{bc.businessData.business.website}}</a><br>
+                <a href="{{bc.businessData.business.website}}" target="_blank">{{bc.businessData.business.website}}</a><br>
             </div>
         </info-window>
     </ng-map>
@@ -26,10 +26,9 @@
                 </div><br>
                 <md-button class="md-raised" id="addBusinessButton" ng-href="#/login" >Add New Business</md-button><br>
             </div>
-            <div id="bizListScroll">
                 <div class="listedBiz" ng-repeat="business in bc.businessData.list | offeringsFilter:searchObject ">
                     <p> <span id="bizName">{{business.name}}</span> <br> {{ business.address }} <br>
-                        <a href="{{business.website}}">{{business.website}}</a> <br><br>
+                        <a href="{{business.website}}" target="_blank">{{business.website}}</a> <br><br>
                     </p>
                     <md-button class="md-raised" id="detailsButtons" ng-click="bc.showDetails(business)">Details</md-button>
                     <br>
@@ -45,7 +44,6 @@
                         <md-button class="md-raised" id="collapseDetailsButtons" ng-click="bc.showDetails(business)">Collapse Details</md-button>
                     </div>
                 </div>
-            </div>
         </md-content>
     </div>
 

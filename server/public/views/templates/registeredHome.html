@@ -13,7 +13,7 @@
                 <div ng-non-bindable="">
                     <span>{{bc.businessData.business.name}}</span><br> {{bc.businessData.business.address}}
                     <br>
-                    <a href="{{bc.businessData.business.website}}">{{bc.businessData.business.website}}</a><br>
+                    <a href="{{bc.businessData.business.website}}" target="_blank">{{bc.businessData.business.website}}</a><br>
                 </div>
             </info-window>
         </ng-map>
@@ -22,24 +22,23 @@
     <!-- BUSINESS LIST WINDOW -->
     <div class="containter" id="bizList">
         <md-content layout-padding>
+            <div id="bizListHeader">
             <div id="markers">
                 <span id="searchBox"> <input   type="text" ng-model="searchBox" placeholder="Search"></span>
                 <span>Grocery:<img id="markerImages" src="/assets/orange.png"></span>
                 <span>Other:<img id="markerImages" src="/assets/purple.png"></span>
-            </div>
-            <div id="bizListHeader">
-                <div>
-                </div>
+            </div><br>
+            <!-- <div id="bizListHeader"> -->
                 <!--    Attempted to add search filters: <div class="filters">
                                 <input type="checkbox" ng-model='searchObject.bulkGrocery'>Bulk Groceries<br>
                                 <input type="checkbox" ng-model='searchObject.clothes'>Clothes<br>
                                 <input type="checkbox" ng-model='searchObject.monkeys'>Monkeys<br>
                             </div> -->
                 <md-button class="md-raised" id="addBusinessButton" ng-click="bc.openNewForm()">Add New Business</md-button><br>
-            </div>
+            </div>        
             <div class="listedBiz" ng-repeat="business in bc.businessData.list | filter:searchBox">
                 <p> <span id="bizName">{{business.name}}</span> <br> {{ business.address }} <br>
-                    <a ng-href="{{business.website}}">{{business.website}}</a> <br><br>
+                    <a ng-href="{{business.website}}" target="_blank">{{business.website}}</a> <br><br>
                 </p>
                 <md-button class="md-raised" id="detailsButtons" ng-click="bc.showDetails(business)">Details</md-button>
                 <md-button class="md-raised" id="deleteButtons" ng-if="uc.userObject.userName==business.user" ng-click="bc.deleteBusiness(business._id)">Delete</md-button>
@@ -84,7 +83,7 @@
                     <p> <span id="labels">Address:</span> {{bc.newBusiness.place.formatted_address}} </p>
 
                     <p> <span id="labels">Website:</span>
-                        <a href="{{bc.newBusiness.place.website}}">{{bc.newBusiness.place.website}}</a></p>
+                        <a href="{{bc.newBusiness.place.website}}" target="_blank">{{bc.newBusiness.place.website}}</a></p>
                     <br>
                     <md-input-container class="md-block" flex-gt-xs>
                         <span id="labels" for="state">Description:</span>

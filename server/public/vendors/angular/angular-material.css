@@ -740,9 +740,9 @@ button.md-button::-moz-focus-inner {
   position: relative;
   cursor: pointer;
   /** Alignment adjustments */
-  min-height: 36px;
+  min-height: 25px;
   min-width: 88px;
-  line-height: 36px;
+  line-height: 25px;
   vertical-align: middle;
   -webkit-box-align: center;
   -webkit-align-items: center;
