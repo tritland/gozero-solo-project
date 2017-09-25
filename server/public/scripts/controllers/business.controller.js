@@ -13,7 +13,9 @@ myApp.controller('BusinessController', ['BusinessService', 'NgMap', '$mdDialog',
         $mdToast.simple()
         .textContent('Thanks for adding to our resource guide!')
     );
-}
+};
+
+
 
   NgMap.getMap("map").then(function (map) {
     vm.map = map;
@@ -25,14 +27,14 @@ myApp.controller('BusinessController', ['BusinessService', 'NgMap', '$mdDialog',
   };
 
   //not workin outside of the marker tag - would like for animation to work when clicking on associated biz in the list
-  vm.toggleBounce = function() {
-    console.log('this is THIS -->', this);
-    if (this.getAnimation() != null) {
-      this.setAnimation(null);
-    } else {
-      this.setAnimation(google.maps.Animation.BOUNCE);
-    }
-  };
+  // vm.toggleBounce = function() {
+  //   console.log('this is THIS -->', this);
+  //   if (this.getAnimation() != null) {
+  //     this.setAnimation(null);
+  //   } else {
+  //     this.setAnimation(google.maps.Animation.BOUNCE);
+  //   }
+  // };
 
   // maps autofill function
   vm.placeChanged = function () {
@@ -109,8 +111,18 @@ myApp.controller('BusinessController', ['BusinessService', 'NgMap', '$mdDialog',
     vm.updateForm = !vm.updateForm;
   };
 
-  vm.deleteBusiness = function (id) {
-    BusinessService.deleteBusiness(id);
+  vm.deleteBusiness = function (ev, id) {
+    var confirm = $mdDialog.confirm()
+    .title('Are you sure you want to delete this listing?')
+    // .textContent('All of the banks have agreed to forgive you your debts.')
+    // .ariaLabel('Lucky day')
+    .targetEvent(ev)
+    .ok('Delete')
+    .cancel('Cancel');
+
+$mdDialog.show(confirm).then(function() {
+  BusinessService.deleteBusiness(id);
+});   
   };
 
   vm.updateBusiness = function (business) {

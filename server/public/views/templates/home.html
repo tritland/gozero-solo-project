@@ -7,11 +7,13 @@
         <marker ng-repeat="business in bc.businessData.list" icon="{{bc.getIcon(business)}}" position="[ {{business.latitude}}, {{business.longitude}} ]"
             on-click="bc.showDeets(business)"></marker>
         <info-window id="infoWindow">
+                <md-content layout-padding>
             <div ng-non-bindable="">
                 <span>{{bc.businessData.business.name}}</span><br> {{bc.businessData.business.address}}
                 <br>
                 <a href="{{bc.businessData.business.website}}" target="_blank">{{bc.businessData.business.website}}</a><br>
             </div>
+            </md-content>
         </info-window>
     </ng-map>
 

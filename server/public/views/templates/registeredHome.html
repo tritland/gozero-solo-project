@@ -10,11 +10,13 @@
             <marker ng-repeat="business in bc.businessData.list" icon="{{bc.getIcon(business)}}" position="[ {{business.latitude}}, {{business.longitude}} ]"
                 on-click="bc.showDeets(business)"></marker>
             <info-window id="infoWindow">
+                    <md-content layout-padding>
                 <div ng-non-bindable="">
                     <span>{{bc.businessData.business.name}}</span><br> {{bc.businessData.business.address}}
                     <br>
                     <a href="{{bc.businessData.business.website}}" target="_blank">{{bc.businessData.business.website}}</a><br>
                 </div>
+                </md-content>
             </info-window>
         </ng-map>
     </div>
@@ -41,7 +43,7 @@
                     <a ng-href="{{business.website}}" target="_blank">{{business.website}}</a> <br><br>
                 </p>
                 <md-button class="md-raised" id="detailsButtons" ng-click="bc.showDetails(business)">Details</md-button>
-                <md-button class="md-raised" id="deleteButtons" ng-if="uc.userObject.userName==business.user" ng-click="bc.deleteBusiness(business._id)">Delete</md-button>
+                <md-button class="md-raised" id="deleteButtons" ng-if="uc.userObject.userName==business.user" ng-click="bc.deleteBusiness($event, business._id)">Delete</md-button>
                 <br>
                 <br>
                 <!-- EXPANDABLE DETAILS SECTION -->
