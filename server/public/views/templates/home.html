@@ -28,7 +28,7 @@
                 </div><br>
                 <md-button class="md-raised" id="addBusinessButton" ng-href="#/login" >Add New Business</md-button><br>
             </div>
-                <div class="listedBiz" ng-repeat="business in bc.businessData.list | offeringsFilter:searchObject ">
+                <div class="listedBiz" ng-repeat="business in bc.businessData.list | filter:searchBox ">
                     <p> <span id="bizName">{{business.name}}</span> <br> {{ business.address }} <br>
                         <a href="{{business.website}}" target="_blank">{{business.website}}</a> <br><br>
                     </p>
