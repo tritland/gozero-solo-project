@@ -22,35 +22,36 @@ router.get('/', function (req, res) {
 // Handles POST request with new business data
 router.post('/', function (req, res, next) {
     console.log('post /business route');
+    if (req.isAuthenticated()) {
 
-
-    var businessToSave = {
-        user: req.user.username,
-        name: req.body.place.name,
-        address: req.body.place.formatted_address,
-        website: req.body.place.website,
-        description: req.body.place.description,
-        offerings: req.body.place.offerings,
-        latitude: req.body.place.latitude,
-        longitude: req.body.place.longitude,
-        type: req.body.place.type,
-    }
-
-    var savedBusiness = new Business(businessToSave);
-
-
-    console.log('this is the savedBusiness ==> ', savedBusiness)
-
-    Business.create(savedBusiness, function (err, post) {
-        console.log('post /business -- Business.create');
-        if (err) {
-            console.log('post /business -- Business.create -- failure');
-            res.sendStatus(500);
-        } else {
-            console.log('post /business -- Business.create -- success');
-            res.sendStatus(201);
+        var businessToSave = {
+            user: req.user.username,
+            name: req.body.place.name,
+            address: req.body.place.formatted_address,
+            website: req.body.place.website,
+            description: req.body.place.description,
+            offerings: req.body.place.offerings,
+            latitude: req.body.place.latitude,
+            longitude: req.body.place.longitude,
+            type: req.body.place.type,
         }
-    });
+
+        var savedBusiness = new Business(businessToSave);
+
+
+        console.log('this is the savedBusiness ==> ', savedBusiness)
+
+        Business.create(savedBusiness, function (err, post) {
+            console.log('post /business -- Business.create');
+            if (err) {
+                console.log('post /business -- Business.create -- failure');
+                res.sendStatus(500);
+            } else {
+                console.log('post /business -- Business.create -- success');
+                res.sendStatus(201);
+            }
+        });
+    }
 });
 
 router.delete('/:id', function (req, res) {

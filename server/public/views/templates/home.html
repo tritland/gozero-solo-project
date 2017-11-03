@@ -3,7 +3,7 @@
 <div class="container" ng-controller="BusinessController as bc">
 
     <!-- MAP AND MARKERS -->
-    <ng-map default-style="false" id="map" center='current-position' zoom="12">
+    <ng-map default-style="false" id="map" center='[44.97, -93.30]' zoom="12">
         <marker ng-repeat="business in bc.businessData.list" icon="{{bc.getIcon(business)}}" position="[ {{business.latitude}}, {{business.longitude}} ]"
             on-click="bc.showDeets(business)"></marker>
         <info-window id="infoWindow">

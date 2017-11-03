@@ -1,10 +1,10 @@
-# Name of Project
+# goZero
 
-One Paragraph of project description goes here. Link to the live version of the app if it's hosted on Heroku.
+goZero is a resource guide to help people who want to live a “zero-waste” lifestyle and for those trying to reduce the amount of waste they produce. Users can use the app to find local businesses that support zero-waste practices, such as package-free bulk shopping. The app is designed so that any member of the community can add their favorite spots the collection.  
 
 ## Built With
 
-List technologies and frameworks here
+JavaScript, MEAN Stack (mongoDB, Express, AngularJS, Node.js), Google Maps API, Google Places API, AngularJS Material, Passport
 
 ## Getting Started
 
@@ -15,43 +15,31 @@ These instructions will get you a copy of the project up and running on your loc
 Link to software that is required to install the app (e.g. node).
 
 - [Node.js](https://nodejs.org/en/)
-- List other prerequisites here
+- Other dependencies as listed in package.json
 
 
 ### Installing
 
-Steps to get the development environment running.
-
-## Screen Shot
-
-Include one or two screen shots of your project here (optional). Remove if unused.
-
-## Documentation
-
-Link to a read-only version of your scope document or other relevant documentation here (optional). Remove if unused.
+Download code, npm install dependencies
 
 ### Completed Features
 
 High level list of items completed.
 
-- [x] Feature a
-- [x] Feature b
+- [x] Users can see all businesses marked on map and listed in window
+- [x] Users can add businesses to the map and list
+- [x] Users can register and login
+- [x] Registered users can add businesses
+- [x] Registered users can update and delete businesses they have added
 
 ### Next Steps
 
-Features that you would like to add at some point in the future.
+Features I would like to add at some point in the future.
 
-- [ ] Feature c
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
+- [ ] Filterable search by zero-waste categories
+- [ ] Interaction between map markers and the listed businesses
 
 ## Authors
 
-* Name of author(s)
+Tom Ritland
 
-
-## Acknowledgments
-
-* Hat tip to anyone who's code was used
